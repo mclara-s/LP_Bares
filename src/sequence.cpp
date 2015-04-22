@@ -1,36 +1,36 @@
 #include "../headers/sequence.hpp"
 #include <iostream>
 
+//! Template inicial da Sequencia
 template <typename TYPE>
 Sequence<TYPE>::Sequence() {
 
 }
-
+///!Destrutor da Sequencia
 template <typename TYPE>
 Sequence<TYPE>::~Sequence() {
 	clear();
 }
-
+//!Template de cópia
 template <typename TYPE>
 Sequence<TYPE>::Sequence(const Sequence<TYPE> &s){
 	copy(s);
 }
-
+//!Operator
 template <typename TYPE>
 Sequence<TYPE>& Sequence<TYPE>::operator=(const Sequence<TYPE> &s){
 	clear();
 	copy(s);
 	return *this;
 }
-
-
+//!Verificando se a Sequencia está vazia
 template <typename TYPE>
 void Sequence<TYPE>::clear(){
 	while (isEmpty() == false){
 		removeLast();
 	}
 }
-
+//!Se a Sequencia estiver vazia, retornar true, caso não, retornar falso
 template <typename TYPE>
 bool Sequence<TYPE>::isEmpty() {
 	if(list.next == nullptr)
@@ -38,7 +38,7 @@ bool Sequence<TYPE>::isEmpty() {
 	else
 		return false;
 }
-
+//!Função para salvar o tamanho da Sequencia
 template <typename TYPE>
 int Sequence<TYPE>::getSize() {
 	int count = 0;
@@ -50,7 +50,7 @@ int Sequence<TYPE>::getSize() {
 	return count;
 
 }
-
+//!Adicionando um valor no inicio da Sequencia
 template <typename TYPE>
 bool Sequence<TYPE>::addFirst(const TYPE &value) {
 	Node *aux = new Node;
@@ -68,7 +68,7 @@ bool Sequence<TYPE>::addFirst(const TYPE &value) {
 	aux->data = value;
 	return true;
 }
-
+//!Adicionando um valor no final da Sequencia
 template <typename TYPE>
 bool Sequence<TYPE>::addLast(const TYPE &value) {
 	Node *aux = new Node;
@@ -86,8 +86,7 @@ bool Sequence<TYPE>::addLast(const TYPE &value) {
 	aux->data = value;
 	return true;
 }
-
-
+//!Função add para adicionar um valor no começo ou final da Sequencia
 template <typename TYPE>
 bool Sequence<TYPE>::add(const TYPE &value, int pos) {
 	if (pos <= 0)
@@ -112,7 +111,7 @@ bool Sequence<TYPE>::add(const TYPE &value, int pos) {
 	}
 	return true;
 }
-
+//!Removendo o primeiro valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::removeFirst() {	
 	TYPE value;
@@ -132,7 +131,7 @@ TYPE Sequence<TYPE>::removeFirst() {
 	}
 	return value;
 }
-
+//!Removendo o ultimo valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::removeLast() {   
 	TYPE value;
@@ -152,7 +151,7 @@ TYPE Sequence<TYPE>::removeLast() {
 	}
 	return value;
 }
-
+//!Função para remover um valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::remove(int pos) {
 	TYPE value;
@@ -177,17 +176,17 @@ TYPE Sequence<TYPE>::remove(int pos) {
 	}
 	return value;
 }
-
+//!Função para armazenar o primeiro valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::getFirst() {
 	return list.next->data;
 }
-
+//!Função para armazenar o ultimo valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::getLast() {
 	return list.prev->data;
 }
-
+//!Função para armazenar um valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::get(int pos) {
 	int i;
@@ -197,7 +196,7 @@ TYPE Sequence<TYPE>::get(int pos) {
 	}
 	return aux->data;
 }
-
+//!Função para buscar um elemento na Sequencia
 template <typename TYPE>
 int Sequence<TYPE>::search(const TYPE &elm) {
 	int i;
@@ -209,7 +208,7 @@ int Sequence<TYPE>::search(const TYPE &elm) {
 	}
 	return false;
 }
-
+//!Função para verificar se uma Sequencia é igual a outra Sequencia
 template <typename TYPE>
 bool Sequence<TYPE>::isEqual(Sequence<TYPE> &s) {
 	Node *aux1 = list.next;
