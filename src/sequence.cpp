@@ -38,7 +38,7 @@ bool Sequence<TYPE>::isEmpty() {
 	else
 		return false;
 }
-//!Função para salvar o tamanho da Sequencia
+//!Funcao para salvar o tamanho da Sequencia
 template <typename TYPE>
 int Sequence<TYPE>::getSize() {
 	int count = 0;
@@ -86,7 +86,7 @@ bool Sequence<TYPE>::addLast(const TYPE &value) {
 	aux->data = value;
 	return true;
 }
-//!Função add para adicionar um valor no começo ou final da Sequencia
+//!Funcao add para adicionar um valor no começo ou final da Sequencia
 template <typename TYPE>
 bool Sequence<TYPE>::add(const TYPE &value, int pos) {
 	if (pos <= 0)
@@ -151,7 +151,7 @@ TYPE Sequence<TYPE>::removeLast() {
 	}
 	return value;
 }
-//!Função para remover um valor da Sequencia
+//!Funcao para remover um valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::remove(int pos) {
 	TYPE value;
@@ -176,17 +176,17 @@ TYPE Sequence<TYPE>::remove(int pos) {
 	}
 	return value;
 }
-//!Função para armazenar o primeiro valor da Sequencia
+//!Funcao para armazenar o primeiro valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::getFirst() {
 	return list.next->data;
 }
-//!Função para armazenar o ultimo valor da Sequencia
+//!Funcao para armazenar o ultimo valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::getLast() {
 	return list.prev->data;
 }
-//!Função para armazenar um valor da Sequencia
+//!Funcao para armazenar um valor da Sequencia
 template <typename TYPE>
 TYPE Sequence<TYPE>::get(int pos) {
 	int i;
@@ -196,7 +196,7 @@ TYPE Sequence<TYPE>::get(int pos) {
 	}
 	return aux->data;
 }
-//!Função para buscar um elemento na Sequencia
+//!Funcao para buscar um elemento na Sequencia
 template <typename TYPE>
 int Sequence<TYPE>::search(const TYPE &elm) {
 	int i;
@@ -208,7 +208,7 @@ int Sequence<TYPE>::search(const TYPE &elm) {
 	}
 	return false;
 }
-//!Função para verificar se uma Sequencia é igual a outra Sequencia
+//!Funcao para verificar se uma Sequencia é igual a outra Sequencia
 template <typename TYPE>
 bool Sequence<TYPE>::isEqual(Sequence<TYPE> &s) {
 	Node *aux1 = list.next;
@@ -225,7 +225,7 @@ bool Sequence<TYPE>::isEqual(Sequence<TYPE> &s) {
 
 	return true;
 }
-
+//!Função para reverter a Sequencia
 template <typename TYPE>
 void Sequence<TYPE>::reverse() {
 	Node *node = list.prev;
@@ -241,7 +241,7 @@ void Sequence<TYPE>::reverse() {
 	list.next = list.prev;
 	list.prev = aux;
 }
-
+//!Função para verificar se a Sequencia está crescente
 template <typename TYPE>
 bool Sequence<TYPE>::isIncreasing(){
 	Node *aux = list.next;
@@ -252,7 +252,7 @@ bool Sequence<TYPE>::isIncreasing(){
 	}
 	return true;
 }
-
+//!Função para verificar se a Sequencia está decrescente
 template <typename TYPE>
 bool Sequence<TYPE>::isDecreasing(){
 	Node *aux = list.next;
@@ -263,7 +263,7 @@ bool Sequence<TYPE>::isDecreasing(){
 	}
 	return true;
 }
-
+//!A função pegará os valores máximos e mínimos da Sequencia
 template <typename TYPE>
 void Sequence<TYPE>::bounds(TYPE &min, TYPE &max){
 	Node *aux = list.next;
@@ -278,7 +278,7 @@ void Sequence<TYPE>::bounds(TYPE &min, TYPE &max){
 		aux = aux->next;
 	}
 }
-
+//!Função de ordenação
 template <typename TYPE>
 void Sequence<TYPE>::sort() {
 	Node *node, *prox;
@@ -299,7 +299,7 @@ void Sequence<TYPE>::sort() {
 		--j;
 	}
 }
-
+//!Função para imprimir saídas de dados
 template <typename TYPE>
 void Sequence<TYPE>::print() {
 	Node *aux = list.next;
