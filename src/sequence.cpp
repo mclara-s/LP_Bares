@@ -302,10 +302,14 @@ void Sequence<TYPE>::sort() {
 //!Função para imprimir saídas de dados
 template <typename TYPE>
 void Sequence<TYPE>::print() {
-	Node *aux = list.next;
-	while (aux != nullptr){
-		std::cout << aux->data << " ";		
-		aux = aux->next;
+	if (isEmpty())
+		std::cout << "A sequencia esta vazia\n";
+	else{
+		Node *aux = list.next;
+		while (aux != nullptr){
+			std::cout << aux->data << " ";		
+			aux = aux->next;
+		}
+		std::cout << std::endl;
 	}
-	std::cout << std::endl;
 }

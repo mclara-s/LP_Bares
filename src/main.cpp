@@ -2,18 +2,118 @@
 #include <string>
 #include <fstream>
 #include "../headers/stack.hpp"
+#include "../headers/queue.hpp"
 
 using namespace std;
 
-
-int main(){
+bool readFile(Queue<string> &expressions){
 	ifstream entryFile;
 	string expr;
-	int i;
-	Stack<char> tokens;
+
+	entryFile.open("expressions.txt");
+	if (entryFile.is_open()){
+		while(!entryFile.eof()){
+			getline(entryFile, expr);
+			if (expr != "\n" && expr != " " && expr != "\t" && expr != "")
+				expressions.enqueue(expr);
+			expr.clear();
+		}
+		entryFile.close();
+		return true;
+	}
+	else
+		return false;
+}
+
+void tokenizacao (string expr, Queue<string> &tokenQueue){
+	string token;
+	while (!expr.empty()){
+		while (expr.front() != ' ' && expr.front() != '\t' && !expr.empty()){
+			token += expr.front();
+			expr.erase(expr.begin());
+		}
+		tokenQueue.enqueue(token);
+		if (!expr.empty()){
+			expr.erase(expr.begin());
+		}
+		token.clear();
+	}
+}
+
+bool isOperator(string ch){
+	if (ch == "*" || ch == "/" || ch == "+" || ch == "-" || ch == "(" || ch == ")" ||
+		ch == "SIMBOLO PORCENTAGEM" || ch == "$" || ch == "^")
+		return true;
+	else
+		return false;
+}
+
+int prioridade(string op){
+	if (op == "$")
+		return 5;
+	if (op == "^")
+		return 4;
+	if (op == "*" || op == "/" || op == "") // COMO FAÇO PARA TESTAR O %?
+		return 3;
+	if (op == "+" || op == "-")
+		return 2;
+	if (op == ")" || op == "(")
+		return 1;
+}
+
+
+void transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
+	Stack<string> operators;
+	string symb, topSymb;
+
+	while (!entrada.isEmpty()){
+		symb = entrada.dequeue();
+			if (!isOperator(symb))
+				saida.enqueue(symb);
+			else if (symb == "(")
+				operators.push(symb);
+			else if (symb == ")"){
+				while (operators.top() != "("){
+					topSymb = operators.pop();
+					saida.enqueue(topSymb);
+				}
+				operators.pop(); // remove o '(';
+			}
+			else{
+				while(!operators.isEmpty() && prioridade(operators.top()) >= prioridade(symb)){
+					topSymb = operators.pop();
+					saida.enqueue(topSymb);
+				}
+				operators.push(symb);
+			}
+
+		}
+
+	while(!operators.isEmpty()){
+		symb = operators.pop();
+		saida.enqueue(symb);
+	}
+}
+
+int main(){
+	Queue<string> infix, posfix, expressions;
+
+	if (readFile(expressions)){
+		while (!expressions.isEmpty()){
+			infix.clear();
+			posfix.clear();
+			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
+			infix.print();
+			transformaParaPos(infix, posfix);
+			posfix.print();
+		}
+	}
+	else{
+		cout << "Erro ao abrir o arquivo. Por favor, tente novamente.\n";
+	}
 
 	//!ABRINDO ARQUIVO DE ENTRADA
-	entryFile.open("expressions.txt");
+/*	entryFile.open("expressions.txt");
 	if (entryFile.is_open()){
 		while(!entryFile.eof()){
 			getline(entryFile, expr);
@@ -30,6 +130,7 @@ int main(){
 
 	while(!tokens.isEmpty())
 		cout << tokens.pop() << endl;
+	*/
 	
 	return 0;
 }

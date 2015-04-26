@@ -20,8 +20,8 @@
 }*/
 
 transformaParaPos(queue &entrada){
-	queue saida;
-	stack operators;
+	Queue<string> saida;
+	Stack<string> operators;
 	string symb, topSymb;
 
 while (!entrada.isEmpty()){

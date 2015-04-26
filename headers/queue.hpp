@@ -28,6 +28,9 @@ public:
 	void print() {
 		seq.print();
 	}
+	void clear(){
+		seq.clear();
+	}
 };
 
 #endif

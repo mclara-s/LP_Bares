@@ -2,18 +2,28 @@
 #include <string>
 #include "../headers/stack.hpp"
 
-bool isOperator(char ch){
-	if (ch == '*' || ch == '/' || ch == '+' || ch == '-')
+bool isOperator(string ch){
+	if (ch == "*" || ch == "/" || ch == "+" || ch == "-" || ch == "(" || ch == ")" ||
+		ch == "SIMBOLO PORCENTAGEM" || ch == "$" || ch == "^")
 		return true;
 	else
 		return false;
 }
 
-bool temPrioridade(char operador1, char operador2){
-
+int prioridade(string op){
+	if (op == "$")
+		return 5;
+	if (op == "^")
+		return 4;
+	if (op == "*" || op == "/" || op == "") // COMO FAÇO PARA TESTAR O %?
+		return 3;
+	if (op == "+" || op == "-")
+		return 2;
+	if (op == ")" || op == "(")
+		return 1;
 }
 
-void calculaPos(string expr){  //A string expr ja eh a expressão pós-fixa
+/*void calculaPos(string expr){  //A string expr ja eh a expressão pós-fixa
 	int opA, opB;
 	for (int i = 0; i < expr.length(); ++i)
 	{
@@ -27,22 +37,39 @@ void calculaPos(string expr){  //A string expr ja eh a expressão pós-fixa
 		else
 			pilha.push(S[i]);
 	}
-}
+}*/
 
-void transformaParaPos(string exprPre, string &exprPos){
-	for (int i = 0; i < exprPre.length(); ++i){
-		if (!isOperator(exprPre[i]))
-			exprPos += exprPre[i];
-		else if(!pilha.isEmpty() && temPrioridade(pilha.top(), exprPre[i])){
-			while(!pilha.isEmpty())
-				exprPos += pilha.pop();
-			pilha.push(exprPre[i]);
+void transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
+	Stack<string> operators;
+	string symb, topSymb;
+
+	while (!entrada.isEmpty()){
+		symb = entrada.dequeue();
+			if (!isOperator(symb))
+				saida.enqueue(symb);
+			else if (symb == "(")
+				operators.push(symb);
+			else if (symb == ")"){
+				while (operators.top() != "("){
+					topSymb = operators.pop();
+					saida.enqueue(topSymb);
+				}
+				operators.pop(); // remove o '(';
+			}
+			else{
+				while(!operators.isEmpty() && prioridade(operators.top()) >= prioridade(symb)){
+					topSymb = operators.pop();
+					saida.enqueue(topSymb);
+				}
+				operators.push(symb);
+			}
+
 		}
-		else
-			pilha.push(exprPre[i]);
+
+	while(!operators.isEmpty()){
+		symb = operators.pop();
+		saida.enqueue(symb);
 	}
-	while(!pilha.isEmpty())
-		exprPos += pilha.pop();
 }
 
 int main(){
