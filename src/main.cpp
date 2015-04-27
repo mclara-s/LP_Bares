@@ -1,6 +1,9 @@
+//PARA COMPILAR: g++ main.cpp -std=c++11 -o programa
+
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cctype>
 #include "../headers/stack.hpp"
 #include "../headers/queue.hpp"
 
@@ -29,11 +32,20 @@ void tokenizacao (string expr, Queue<string> &tokenQueue){
 	string token;
 	while (!expr.empty()){
 		while (expr.front() != ' ' && expr.front() != '\t' && !expr.empty()){
-			token += expr.front();
-			expr.erase(expr.begin());
+			if (isdigit(expr.front())){
+				token += expr.front();
+				expr.erase(expr.begin());
+			}
+			else{
+				if (!token.empty())
+					tokenQueue.enqueue(token);
+				token = expr.front();
+				expr.erase(expr.begin());
+				break;
+			}
 		}
 		tokenQueue.enqueue(token);
-		if (!expr.empty()){
+		if (!expr.empty() && (expr.front() == ' ' || expr.front() == '\t')){
 			expr.erase(expr.begin());
 		}
 		token.clear();
@@ -103,9 +115,9 @@ int main(){
 			infix.clear();
 			posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
-			infix.print();
 			transformaParaPos(infix, posfix);
 			posfix.print();
+			
 		}
 	}
 	else{
