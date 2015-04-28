@@ -28,8 +28,16 @@ bool readFile(Queue<string> &expressions){
 		return false;
 }
 
+bool isOperator(string ch){
+	if (ch == "*" || ch == "/" || ch == "+" || ch == "-" || ch == "(" || ch == ")" ||
+		ch == "SIMBOLO PORCENTAGEM" || ch == "$" || ch == "^")
+		return true;
+	else
+		return false;
+}
+
 void tokenizacao (string expr, Queue<string> &tokenQueue){
-	string token;
+	string token, lastToken = "";
 	while (!expr.empty()){
 		while (expr.front() != ' ' && expr.front() != '\t' && !expr.empty()){
 			if (isdigit(expr.front())){
@@ -37,9 +45,13 @@ void tokenizacao (string expr, Queue<string> &tokenQueue){
 				expr.erase(expr.begin());
 			}
 			else{
-				if (!token.empty())
+				if (!token.empty()){
+					lastToken = token;
 					tokenQueue.enqueue(token);
+				}
 				token = expr.front();
+				if (token == "-" && (isOperator(lastToken) || lastToken == ""))
+					token = "$";
 				expr.erase(expr.begin());
 				break;
 			}
@@ -48,16 +60,10 @@ void tokenizacao (string expr, Queue<string> &tokenQueue){
 		if (!expr.empty() && (expr.front() == ' ' || expr.front() == '\t')){
 			expr.erase(expr.begin());
 		}
+		lastToken.clear();
+		lastToken = token;
 		token.clear();
 	}
-}
-
-bool isOperator(string ch){
-	if (ch == "*" || ch == "/" || ch == "+" || ch == "-" || ch == "(" || ch == ")" ||
-		ch == "SIMBOLO PORCENTAGEM" || ch == "$" || ch == "^")
-		return true;
-	else
-		return false;
 }
 
 int prioridade(string op){
@@ -87,6 +93,8 @@ void transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 			else if (symb == ")"){
 				while (operators.top() != "("){
 					topSymb = operators.pop();
+					if (topSymb == "$")
+						topSymb = "-";
 					saida.enqueue(topSymb);
 				}
 				operators.pop(); // remove o '(';
@@ -94,6 +102,8 @@ void transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 			else{
 				while(!operators.isEmpty() && prioridade(operators.top()) >= prioridade(symb)){
 					topSymb = operators.pop();
+					if (topSymb == "$")
+						topSymb = "-";
 					saida.enqueue(topSymb);
 				}
 				operators.push(symb);
@@ -115,6 +125,7 @@ int main(){
 			infix.clear();
 			posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
+			infix.print();
 			transformaParaPos(infix, posfix);
 			posfix.print();
 			
