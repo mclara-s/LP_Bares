@@ -101,11 +101,10 @@ int tokenizacao (string expr, Queue<string> &tokenQueue){
 		if (!expr.empty() && (expr.front() == ' ' || expr.front() == '\t')){
 			expr.erase(expr.begin());
 		}
-		cout <<"token: "<< token << "lasttoken: " << lastToken << endl;
-		if (isNumber(token) && isNumber(lastToken)){
-			//errors(5);
+		/*if ((isNumber(token) && isNumber(lastToken)) && !) {//Diferente do erro 4
+			errors(5);
 			return -1;
-		}
+		}*/
 		lastToken.clear();
 		lastToken = token;
 	}
@@ -147,11 +146,14 @@ int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 					saida.enqueue(symb);
 				}
 				else{
-					if ((symb.front() >= 65 && symb.front() <= 90) || (symb.front() >= 97 && symb.front() <= 122))
+					if ((symb.front() >= 65 && symb.front() <= 90) || (symb.front() >= 97 && symb.front() <= 122)){
 						errors(3);
-					else
+						return -1;
+					}
+					/*else if (topSymb != ch){//diferente dos operadores escritos
 						errors(4);
-					return -1;
+						return -1;
+					}*/
 				}
 			}
 			else if (symb == "(")
@@ -183,7 +185,6 @@ int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 	}
 	return 1;
 }
-
 int main(){
 	Queue<string> infix, posfix, expressions;
 
@@ -192,12 +193,12 @@ int main(){
 			infix.clear();
 			posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
-			//infix.print();
+			infix.print();
 			transformaParaPos(infix, posfix);
-			//posfix.print();
-			//if (transformaParaPos(infix, posfix) > 0){
-				//calcula 
-//			}			
+			/*posfix.print();
+			if (transformaParaPos(infix, posfix) > 0){
+				calcula 
+//			}*/			
 		}
 	}
 	else{
@@ -209,7 +210,6 @@ int main(){
 	if (entryFile.is_open()){
 		while(!entryFile.eof()){
 			getline(entryFile, expr);
-
 			//!FAZENDO "TOKENIZAÇÃO" : CRIANDO PILHA COM OS CARACTERES NAO NULOS
 			for (i = 0; i < expr.length(); i++){
 				if (expr[i] != ' ' && expr[i] != '\t')
@@ -219,7 +219,6 @@ int main(){
 	}
 	else
 		cout << "Erro ao abrir arquivo.\n";		
-
 	while(!tokens.isEmpty())
 		cout << tokens.pop() << endl;
 	*/
