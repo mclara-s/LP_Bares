@@ -1,4 +1,4 @@
-//PARA COMPILAR: g++ main.cpp -std=c++11 -o programa
+	//PARA COMPILAR: g++ main.cpp -std=c++11 -o programa
 
 #include <iostream>
 #include <string>
@@ -38,6 +38,8 @@ bool isOperator(string ch){
 
 bool isNumber(string str){
 	char ch;
+	if (str.empty())
+		return false;
 	while (!str.empty()){
 		ch = str.front();
 		if (!isdigit(ch))
@@ -72,14 +74,72 @@ void errors(int i){
 			break;
 		case 8:
 			cout << "Erro! Divisao por zero!\n";
+			break;
+		default:
 			break; 
 	}
 }
 
+int testaErros1a5(string token, string lastToken){
+	//TESTE ERRO 1
+	if (isNumber(token)){
+		int i = stoi(token);
+		if(i > 32767 || i < -32767 )
+			return 1;
+	}
+
+	//TESTE ERRO 2 NO MEIO DA EXPRESSAO
+	if (isOperator(token) && isOperator(lastToken) && 
+		token != "(" && token != ")" && token != "$" && lastToken!= "(" && lastToken!=")"){
+		//cout <<"teste 2.1\n";
+		return 2;
+	}
+	if (token == ")" && (isOperator(lastToken) && lastToken!= ")")){
+		//cout <<"teste 2.2\n";
+		return 2;
+	}
+	if (lastToken == "(" && (token!= "$" && token != "(" && !isNumber(token))){
+		//cout <<"teste 2.3\n";
+		return 2;
+	}
+
+	//TESTE ERRO 3 e 4
+	if (!isNumber(token) && !isOperator(token)){
+		if ((token.front() >= 65 && token.front() <= 90) || (token.front() >= 97 && token.front() <= 122))
+			return 3;
+		else
+			return 4;
+	}
+
+	//TESTE ERRO 5
+	if (isNumber(token) && isNumber(lastToken)){
+		//cout <<"teste 5.1\n";
+		return 5;
+	}
+	if (token == "(" && ((!isOperator(lastToken) && lastToken != "") || lastToken == ")")){
+		//cout <<"teste 5.2\n";
+		return 5;
+	}
+	else
+		return 0;
+}
+
+int testaErros6e7(int pA, int pF){
+	if (pF > pA)
+		return 6;
+	else if (pA > pF)
+		return 7;
+	else
+		return 0;
+}
+
 int tokenizacao (string expr, Queue<string> &tokenQueue){
 	string token, lastToken = "";
+	int nParentesisAb, nParentesisFech, teste;
+	nParentesisAb = nParentesisFech = 0;
+
 	while (!expr.empty()){
-		token.clear();
+		//token.clear();
 		while (expr.front() != ' ' && expr.front() != '\t' && !expr.empty()){
 			if (isdigit(expr.front())){
 				token += expr.front();
@@ -91,7 +151,11 @@ int tokenizacao (string expr, Queue<string> &tokenQueue){
 					tokenQueue.enqueue(token);
 				}
 				token = expr.front();
-				if (token == "-" && (isOperator(lastToken) || lastToken == ""))
+				if (token == "(")
+					++nParentesisAb;
+				else if (token == ")")
+					++nParentesisFech;
+				else if (token == "-" && (isOperator(lastToken) || lastToken == ""))
 					token = "$";
 				expr.erase(expr.begin());
 				break;
@@ -101,17 +165,54 @@ int tokenizacao (string expr, Queue<string> &tokenQueue){
 		if (!expr.empty() && (expr.front() == ' ' || expr.front() == '\t')){
 			expr.erase(expr.begin());
 		}
-		/*if ((isNumber(token) && isNumber(lastToken)) && !) {//Diferente do erro 4
+
+/*		
+		TESTE DE ERROS ANTERIOR
+		if ((isNumber(token) && isNumber(lastToken)) && !) {//Diferente do erro 4
 			errors(5);
 			return -1;
-		}*/
+		}
+		if (token == "("){
+			previousParentesis = true;
+			if (!isOperator(lastToken) && lastToken != ""){
+				errors(5);
+				return -1;
+			}
+		}
+		else if (token == ")"){
+			if (previousParentesis == false){
+				errors(6);
+				return -1;
+			}
+			else if (!isNumber(lastToken) || lastToken!= ")"){
+				errors(2);
+				return -1;
+			}
+
+		}
+		*/
+		teste = testaErros1a5(token, lastToken);
+		if (teste > 0){
+			errors(teste);
+			return -1;
+		}
 		lastToken.clear();
 		lastToken = token;
+		token.clear();
 	}
-	if (isOperator(token) && token != ")"){
+
+	//TESTE ERRO 2 FINAL DA EXPRESSAO
+	if (isOperator(lastToken) && lastToken != ")"){
 		errors(2);
 		return -1;
 	}
+	//TESTE ERRORS 6 E 7
+	teste = testaErros6e7(nParentesisAb, nParentesisFech);
+	if (teste > 0){
+		errors(teste);
+		return -1;
+	}
+
 	return 1;
 }
 
@@ -137,24 +238,24 @@ int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 	while (!entrada.isEmpty()){
 		symb = entrada.dequeue();
 			if (!isOperator(symb)){
-				if (isNumber(symb)){
-					op = stoi(symb);
+				//if (isNumber(symb)){
+				/*	op = stoi(symb);
 					if(op > 32767 || op < -32767){
 						errors(1);
 						return -1;
-					}
+					}*/
 					saida.enqueue(symb);
-				}
-				else{
+				//}
+	/*			else{
 					if ((symb.front() >= 65 && symb.front() <= 90) || (symb.front() >= 97 && symb.front() <= 122)){
 						errors(3);
 						return -1;
 					}
-					/*else if (topSymb != ch){//diferente dos operadores escritos
+					else if (topSymb != ch){//diferente dos operadores escritos
 						errors(4);
 						return -1;
-					}*/
-				}
+					}
+				}*/
 			}
 			else if (symb == "(")
 				operators.push(symb);
@@ -194,7 +295,7 @@ int main(){
 			posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
 			infix.print();
-			transformaParaPos(infix, posfix);
+			//transformaParaPos(infix, posfix);
 			/*posfix.print();
 			if (transformaParaPos(infix, posfix) > 0){
 				calcula 
