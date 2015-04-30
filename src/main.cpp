@@ -9,6 +9,13 @@
 
 using namespace std;
 
+struct Token {
+	string str;
+	int col;
+	//ostream& operator=(const Sequence<TYPE> &s);
+	//FAZER SOBRECARGA DO OPERADOR <<
+};
+
 bool readFile(Queue<string> &expressions){
 	ifstream entryFile;
 	string expr;
@@ -124,6 +131,7 @@ int testaErros1a5(string token, string lastToken){
 		return 0;
 }
 
+/*
 int testaErros6e7(int pA, int pF){
 	if (pF > pA)
 		return 6;
@@ -132,86 +140,85 @@ int testaErros6e7(int pA, int pF){
 	else
 		return 0;
 }
+*/
 
-int tokenizacao (string expr, Queue<string> &tokenQueue){
-	string token, lastToken = "";
-	int nParentesisAb, nParentesisFech, teste;
-	nParentesisAb = nParentesisFech = 0;
+int tokenizacao (string expr, Queue<Token> &tokenQueue){
+	//string token, lastToken = "";
+	Token tk, lastTk;
+	int teste, coluna = 0;
+	//nParentesisAb = nParentesisFech = 0;
 
 	while (!expr.empty()){
+		++coluna;
 		//token.clear();
 		while (expr.front() != ' ' && expr.front() != '\t' && !expr.empty()){
+			if (!tk.str.empty()){
+					lastTk.str = tk.str;
+					lastTk.col = tk.col;
+					tokenQueue.enqueue(tk);
+					tk.str.clear();
+					++coluna;
+			}
+
 			if (isdigit(expr.front())){
-				token += expr.front();
+				/*if (!tk.str.empty()){
+					lastTk.str = tk.str;
+					lastTk.col = tk.col;
+					tokenQueue.enqueue(tk);
+					tk.str.clear();
+					++coluna;
+				}*/
+				tk.str += expr.front();
 				expr.erase(expr.begin());
 			}
 			else{
-				if (!token.empty()){
-					lastToken = token;
-					tokenQueue.enqueue(token);
-				}
-				token = expr.front();
-				if (token == "(")
-					++nParentesisAb;
-				else if (token == ")")
-					++nParentesisFech;
-				else if (token == "-" && (isOperator(lastToken) || lastToken == ""))
-					token = "$";
+				/*if (!tk.str.empty()){
+					lastTk.str = tk.str;
+					lastTk.col = tk.col;
+					tokenQueue.enqueue(tk);
+					tk.str.clear();
+					++coluna;
+				}*/
+				tk.str = expr.front();
+				//if (tk.str == "(")
+				//	++nParentesisAb;
+				//else if (token == ")")
+				//	++nParentesisFech;
+				if (tk.str == "-" && (isOperator(lastTk.str) || lastTk.str == ""))
+					tk.str = "$";
 				expr.erase(expr.begin());
-				break;
+				//break;
 			}
+			tk.col = coluna;
 		}
-		tokenQueue.enqueue(token);
+		tokenQueue.enqueue(tk);
 		if (!expr.empty() && (expr.front() == ' ' || expr.front() == '\t')){
+			++coluna;
 			expr.erase(expr.begin());
 		}
 
-/*		
-		TESTE DE ERROS ANTERIOR
-		if ((isNumber(token) && isNumber(lastToken)) && !) {//Diferente do erro 4
-			errors(5);
-			return -1;
-		}
-		if (token == "("){
-			previousParentesis = true;
-			if (!isOperator(lastToken) && lastToken != ""){
-				errors(5);
-				return -1;
-			}
-		}
-		else if (token == ")"){
-			if (previousParentesis == false){
-				errors(6);
-				return -1;
-			}
-			else if (!isNumber(lastToken) || lastToken!= ")"){
-				errors(2);
-				return -1;
-			}
-
-		}
-		*/
-		teste = testaErros1a5(token, lastToken);
+		teste = testaErros1a5(tk.str, lastTk.str);
 		if (teste > 0){
 			errors(teste);
 			return -1;
 		}
-		lastToken.clear();
-		lastToken = token;
-		token.clear();
+		lastTk.str.clear();
+		lastTk.str = tk.str;
+		lastTk.col = tk.col;
+		tk.str.clear();
 	}
 
 	//TESTE ERRO 2 FINAL DA EXPRESSAO
-	if (isOperator(lastToken) && lastToken != ")"){
+	if (isOperator(lastTk.str) && lastTk.str != ")"){
 		errors(2);
 		return -1;
 	}
-	//TESTE ERRORS 6 E 7
+/*	//TESTE ERRORS 6 E 7
 	teste = testaErros6e7(nParentesisAb, nParentesisFech);
 	if (teste > 0){
 		errors(teste);
 		return -1;
-	}
+	}*/
 
 	return 1;
 }
@@ -229,7 +236,7 @@ int prioridade(string op){
 		return 1;
 }
 
-
+/*
 int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 	Stack<string> operators;
 	string symb, topSymb;
@@ -238,33 +245,20 @@ int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 	while (!entrada.isEmpty()){
 		symb = entrada.dequeue();
 			if (!isOperator(symb)){
-				//if (isNumber(symb)){
-				/*	op = stoi(symb);
-					if(op > 32767 || op < -32767){
-						errors(1);
-						return -1;
-					}*/
 					saida.enqueue(symb);
-				//}
-	/*			else{
-					if ((symb.front() >= 65 && symb.front() <= 90) || (symb.front() >= 97 && symb.front() <= 122)){
-						errors(3);
-						return -1;
-					}
-					else if (topSymb != ch){//diferente dos operadores escritos
-						errors(4);
-						return -1;
-					}
-				}*/
 			}
 			else if (symb == "(")
 				operators.push(symb);
 			else if (symb == ")"){
-				while (operators.top() != "("){
+				while (operators.top() != "(" && !operators.empty()){
 					topSymb = operators.pop();
 					if (topSymb == "$")
 						topSymb = "-";
 					saida.enqueue(topSymb);
+				}
+				if (operators.empty()){
+					errors(6);
+					return -1;
 				}
 				operators.pop(); // remove o '(';
 			}
@@ -282,19 +276,26 @@ int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 
 	while(!operators.isEmpty()){
 		symb = operators.pop();
+		if (symb == "("){
+			errors(7);
+			return -1;
+		}
 		saida.enqueue(symb);
 	}
 	return 1;
 }
+*/
+
 int main(){
-	Queue<string> infix, posfix, expressions;
+	Queue<Token> infix, posfix;
+	Queue<string> expressions;
 
 	if (readFile(expressions)){
 		while (!expressions.isEmpty()){
 			infix.clear();
 			posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
-			infix.print();
+			//infix.print();
 			//transformaParaPos(infix, posfix);
 			/*posfix.print();
 			if (transformaParaPos(infix, posfix) > 0){
