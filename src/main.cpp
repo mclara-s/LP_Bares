@@ -12,8 +12,15 @@ using namespace std;
 struct Token {
 	string str;
 	int col;
-	//ostream& operator=(const Sequence<TYPE> &s);
-	//FAZER SOBRECARGA DO OPERADOR <<
+	void print(){
+		cout << "(" << str << ", " << col << ")\n";
+	}
+	
+	friend ostream& operator<<(ostream& os, const Token& tk)
+	{
+	    os << "(" << tk.str <<  ", " << tk.col << ")";
+	    return os;
+	}
 };
 
 bool readFile(Queue<string> &expressions){
@@ -289,13 +296,19 @@ int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
 int main(){
 	Queue<Token> infix, posfix;
 	Queue<string> expressions;
+	Token t;
 
 	if (readFile(expressions)){
 		while (!expressions.isEmpty()){
 			infix.clear();
 			posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
-			//infix.print();
+			/*while(!infix.isEmpty()){
+				t = infix.dequeue();
+				t.print();
+				
+			}*/
+			infix.print();
 			//transformaParaPos(infix, posfix);
 			/*posfix.print();
 			if (transformaParaPos(infix, posfix) > 0){
