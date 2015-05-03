@@ -15,7 +15,7 @@ struct Token {
 	void print(){
 		cout << "(" << str << ", " << col << ")\n";
 	}
-	
+
 	friend ostream& operator<<(ostream& os, const Token& tk)
 	{
 	    os << "(" << tk.str <<  ", " << tk.col << ")";
@@ -63,35 +63,49 @@ bool isNumber(string str){
 	return true;
 }
 
-void errors(int i){
+void errors(int i, Token tk){
 	switch (i){
 		case 1:
-			cout << "Erro! Constate numerica invalida.\n";
+			cout << "Erro: coluna " << tk.col << " - Constate numerica invalida.\n";
 			break;
 		case 2:
-			cout << "Erro! Falta operando.\n";
+			cout << "Erro: coluna " << tk.col << " - Falta operando.\n";
 			break;
 		case 3:
-			cout << "Erro! Operando invalido.\n";
+			cout << "Erro: coluna " << tk.col << " - Operando invalido.\n";
 			break;
 		case 4:
-			cout << "Erro! Operador invalido.\n";
+			cout << "Erro: coluna " << tk.col << " - Operador invalido.\n";
 			break;
 		case 5:
-			cout << "Erro! Falta operador.\n";
+			cout << "Erro: coluna " << tk.col << " - Falta operador.\n";
 			break;
 		case 6:
-			cout << "Erro! Fechamento de escopo invalido.\n";
+			cout << "Erro: coluna " << tk.col << " - Fechamento de escopo invalido.\n";
 			break;
 		case 7:
-			cout << "Erro! Escopo aberto.\n";
+			cout << "Erro: coluna " << tk.col << " - Escopo aberto.\n";
 			break;
 		case 8:
-			cout << "Erro! Divisao por zero!\n";
+			cout << "Erro: coluna " << tk.col << " - Divisao por zero!\n";
 			break;
 		default:
 			break; 
 	}
+}
+
+int type(char str){
+	if (isdigit(str))
+		return 1;
+	else
+		return 2;
+}
+
+int type(string str){
+	if (isNumber(str))
+		return 1;
+	else
+		return 2;
 }
 
 int testaErros1a5(string token, string lastToken){
@@ -138,63 +152,35 @@ int testaErros1a5(string token, string lastToken){
 		return 0;
 }
 
-/*
-int testaErros6e7(int pA, int pF){
-	if (pF > pA)
-		return 6;
-	else if (pA > pF)
-		return 7;
-	else
-		return 0;
-}
-*/
-
 int tokenizacao (string expr, Queue<Token> &tokenQueue){
-	//string token, lastToken = "";
 	Token tk, lastTk;
 	int teste, coluna = 0;
-	//nParentesisAb = nParentesisFech = 0;
 
 	while (!expr.empty()){
 		++coluna;
-		//token.clear();
 		while (expr.front() != ' ' && expr.front() != '\t' && !expr.empty()){
-			if (!tk.str.empty()){
-					lastTk.str = tk.str;
-					lastTk.col = tk.col;
-					tokenQueue.enqueue(tk);
-					tk.str.clear();
-					++coluna;
+			if (!tk.str.empty() && (type(expr.front()) != type(tk.str) || isOperator(tk.str))){
+				teste = testaErros1a5(tk.str, lastTk.str);
+				if (teste > 0){
+					errors(teste, tk);
+					return -1;
+				}
+				lastTk.str = tk.str;
+				lastTk.col = tk.col;
+				tokenQueue.enqueue(tk);
+				tk.str.clear();
+				++coluna;
 			}
 
 			if (isdigit(expr.front())){
-				/*if (!tk.str.empty()){
-					lastTk.str = tk.str;
-					lastTk.col = tk.col;
-					tokenQueue.enqueue(tk);
-					tk.str.clear();
-					++coluna;
-				}*/
 				tk.str += expr.front();
 				expr.erase(expr.begin());
 			}
 			else{
-				/*if (!tk.str.empty()){
-					lastTk.str = tk.str;
-					lastTk.col = tk.col;
-					tokenQueue.enqueue(tk);
-					tk.str.clear();
-					++coluna;
-				}*/
 				tk.str = expr.front();
-				//if (tk.str == "(")
-				//	++nParentesisAb;
-				//else if (token == ")")
-				//	++nParentesisFech;
 				if (tk.str == "-" && (isOperator(lastTk.str) || lastTk.str == ""))
 					tk.str = "$";
 				expr.erase(expr.begin());
-				//break;
 			}
 			tk.col = coluna;
 		}
@@ -206,7 +192,7 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 
 		teste = testaErros1a5(tk.str, lastTk.str);
 		if (teste > 0){
-			errors(teste);
+			errors(teste, tk);
 			return -1;
 		}
 		lastTk.str.clear();
@@ -217,15 +203,9 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 
 	//TESTE ERRO 2 FINAL DA EXPRESSAO
 	if (isOperator(lastTk.str) && lastTk.str != ")"){
-		errors(2);
+		errors(2, lastTk);
 		return -1;
 	}
-/*	//TESTE ERRORS 6 E 7
-	teste = testaErros6e7(nParentesisAb, nParentesisFech);
-	if (teste > 0){
-		errors(teste);
-		return -1;
-	}*/
 
 	return 1;
 }
@@ -243,55 +223,53 @@ int prioridade(string op){
 		return 1;
 }
 
-/*
-int transformaParaPos(Queue<string> &entrada, Queue<string> &saida){
-	Stack<string> operators;
-	string symb, topSymb;
+
+int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
+	Stack<Token> operators;
+	Token symb, topSymb;
 	int op;
 
 	while (!entrada.isEmpty()){
 		symb = entrada.dequeue();
-			if (!isOperator(symb)){
+			if (!isOperator(symb.str)){
 					saida.enqueue(symb);
 			}
-			else if (symb == "(")
-				operators.push(symb);
-			else if (symb == ")"){
-				while (operators.top() != "(" && !operators.empty()){
+			else if (symb.str == "("){
+				operators.push(symb);}
+			else if (symb.str == ")"){
+				while (!operators.isEmpty() && operators.top().str != "("){
 					topSymb = operators.pop();
-					if (topSymb == "$")
-						topSymb = "-";
+					if (topSymb.str == "$")
+						topSymb.str = "-";
 					saida.enqueue(topSymb);
 				}
-				if (operators.empty()){
-					errors(6);
+				if (operators.isEmpty()){
+					errors(6, symb);
 					return -1;
 				}
 				operators.pop(); // remove o '(';
 			}
 			else{
-				while(!operators.isEmpty() && prioridade(operators.top()) >= prioridade(symb)){
+				while(!operators.isEmpty() && prioridade(operators.top().str) >= prioridade(symb.str)){
 					topSymb = operators.pop();
-					if (topSymb == "$")
-						topSymb = "-";
+					if (topSymb.str == "$")
+						topSymb.str = "-";
 					saida.enqueue(topSymb);
 				}
 				operators.push(symb);
 			}
 
 		}
-
 	while(!operators.isEmpty()){
 		symb = operators.pop();
-		if (symb == "("){
-			errors(7);
+		if (symb.str == "("){
+			errors(7, symb);
 			return -1;
 		}
 		saida.enqueue(symb);
 	}
 	return 1;
 }
-*/
 
 int main(){
 	Queue<Token> infix, posfix;
@@ -302,41 +280,24 @@ int main(){
 		while (!expressions.isEmpty()){
 			infix.clear();
 			posfix.clear();
+			cout << expressions.front() << endl;
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
 			/*while(!infix.isEmpty()){
 				t = infix.dequeue();
 				t.print();
 				
 			}*/
-			infix.print();
-			//transformaParaPos(infix, posfix);
-			/*posfix.print();
-			if (transformaParaPos(infix, posfix) > 0){
-				calcula 
+			//infix.print();
+			transformaParaPos(infix, posfix);
+			//posfix.print();
+			//if (transformaParaPos(infix, posfix) > 0){
+			//	calcula 
 //			}*/			
 		}
 	}
 	else{
 		cout << "Erro ao abrir o arquivo. Por favor, tente novamente.\n";
 	}
-
-	//!ABRINDO ARQUIVO DE ENTRADA
-/*	entryFile.open("expressions.txt");
-	if (entryFile.is_open()){
-		while(!entryFile.eof()){
-			getline(entryFile, expr);
-			//!FAZENDO "TOKENIZAÇÃO" : CRIANDO PILHA COM OS CARACTERES NAO NULOS
-			for (i = 0; i < expr.length(); i++){
-				if (expr[i] != ' ' && expr[i] != '\t')
-					tokens.push(expr[i]);
-			}
-		}
-	}
-	else
-		cout << "Erro ao abrir arquivo.\n";		
-	while(!tokens.isEmpty())
-		cout << tokens.pop() << endl;
-	*/
 	
 	return 0;
 }
