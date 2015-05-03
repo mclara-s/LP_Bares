@@ -4,6 +4,7 @@
 #include <string>
 #include <fstream>
 #include <cctype>
+#include <math.h>
 #include "../headers/stack.hpp"
 #include "../headers/queue.hpp"
 
@@ -252,8 +253,8 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 			else{
 				while(!operators.isEmpty() && prioridade(operators.top().str) >= prioridade(symb.str)){
 					topSymb = operators.pop();
-					if (topSymb.str == "$")
-						topSymb.str = "-";
+					//if (topSymb.str == "$")
+					//	topSymb.str = "-";
 					saida.enqueue(topSymb);
 				}
 				operators.push(symb);
@@ -271,16 +272,59 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 	return 1;
 }
 
+int calcula(int op1, int op2, string symb){
+	if (symb == "*")
+		return op1*op2;
+	if (symb == "/")
+		return op1/op2;
+	if (symb == "+")
+		return op1 + op2;
+	if (symb == "-")
+		return op1 - op2;
+	if (symb == "\%")
+		return op1%op2;
+	if (symb == "^")
+		return pow(op1,op2);
+}
+
+int calculaPosF(Queue<Token> posfix){
+	int result, op1, op2;
+	Token symb;
+	Stack<int>operandos;
+
+	while (!posfix.isEmpty()){
+		symb = posfix.dequeue();
+		if (isNumber(symb.str))
+			operandos.push(stoi(symb.str));
+		else if(symb.str == "$"){
+			op1 = operandos.pop();
+			result = op1*(-1);
+			operandos.push(result);
+		}
+		else{
+			op2 = operandos.pop();
+			op1 = operandos.pop();
+			result = calcula(op1, op2, symb.str);
+			operandos.push(result);
+		}
+	}
+	result = operandos.pop();
+	return result;
+}
+
 int main(){
 	Queue<Token> infix, posfix;
 	Queue<string> expressions;
 	Token t;
+	int result = 0;
 
 	if (readFile(expressions)){
 		while (!expressions.isEmpty()){
-			infix.clear();
-			posfix.clear();
 			cout << expressions.front() << endl;
+			if (!infix.isEmpty())
+				infix.clear();
+			if (!posfix.isEmpty())
+				posfix.clear();
 			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
 			/*while(!infix.isEmpty()){
 				t = infix.dequeue();
@@ -288,11 +332,11 @@ int main(){
 				
 			}*/
 			//infix.print();
-			transformaParaPos(infix, posfix);
-			//posfix.print();
-			//if (transformaParaPos(infix, posfix) > 0){
-			//	calcula 
-//			}*/			
+			if (transformaParaPos(infix, posfix) > 0){
+				//posfix.print();
+				result = calculaPosF(posfix);
+				cout << result << endl;
+			}			
 		}
 	}
 	else{
