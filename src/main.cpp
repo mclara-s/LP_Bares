@@ -216,7 +216,7 @@ int prioridade(string op){
 		return 5;
 	if (op == "^")
 		return 4;
-	if (op == "*" || op == "/" || op == "") // COMO FAÇO PARA TESTAR O %?
+	if (op == "*" || op == "/" || op == "\%")
 		return 3;
 	if (op == "+" || op == "-")
 		return 2;
@@ -332,8 +332,10 @@ int main(){
 				
 			}*/
 			//infix.print();
+			//transformaParaPos(infix,posfix);
+			posfix.print();
 			if (transformaParaPos(infix, posfix) > 0){
-				//posfix.print();
+				posfix.print();
 				result = calculaPosF(posfix);
 				cout << result << endl;
 			}			
