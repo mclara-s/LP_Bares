@@ -287,7 +287,7 @@ int calcula(int op1, int op2, string symb){
 		return pow(op1,op2);
 }
 
-int calculaPosF(Queue<Token> posfix){
+int calculaPosF(Queue<Token> &posfix){
 	int result, op1, op2;
 	Token symb;
 	Stack<int>operandos;
@@ -309,6 +309,8 @@ int calculaPosF(Queue<Token> posfix){
 		}
 	}
 	result = operandos.pop();
+	cout << "posfix:\n";
+	posfix.print();
 	return result;
 }
 
@@ -344,6 +346,12 @@ int main(){
 	else{
 		cout << "Erro ao abrir o arquivo. Por favor, tente novamente.\n";
 	}
+	//cout << "expressions:\n";
+	//expressions.print();
+	//cout << "posfix:\n";	
+	//posfix.print();
+	//cout << "infix:\n";
+	//infix.print();
 	
 	return 0;
 }

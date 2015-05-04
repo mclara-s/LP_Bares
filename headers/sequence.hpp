@@ -54,7 +54,7 @@ class Sequence {
 	void copy (const Sequence<TYPE> &s){
 		Node *aux = s.list.next;
 		while(aux != nullptr){
-			Node *n = new Node;
+			/*Node *n = new Node;
 			n->prev = aux->prev;
 			n->data = aux->data;
 			n->next = aux->next;
@@ -63,7 +63,9 @@ class Sequence {
 			if (n->prev == nullptr)
 				list.next = n;
 			if(n->next == nullptr)
-				list.prev = n;
+				list.prev = n;*/
+			addLast(aux->data);
+			aux = aux->next;	
 		}
 	}
 
