@@ -1,0 +1,88 @@
+\hypertarget{classBares}{}\section{Bares Class Reference}
+\label{classBares}\index{Bares@{Bares}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{classBares_a66bbc9cb3231b4c6154667c2f4695d65}{read\+File} ()
+\item 
+bool \hyperlink{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}{is\+Operator} (string)
+\item 
+bool \hyperlink{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}{is\+Number} (string)
+\item 
+void \hyperlink{classBares_a5fdb9605f566885b1bd624b76030babf}{errors} (int, \hyperlink{structToken}{Token})
+\item 
+int \hyperlink{classBares_aa31cf3da4e7e28ceb5da86e7118f30f6}{type} (char)
+\item 
+int \hyperlink{classBares_af362a384ef4500b25321b99f1e494e59}{type} (string)
+\item 
+int \hyperlink{classBares_a845256ca5c22ff7840f97a01650949c7}{testa\+Erros1a5} (string, string)
+\item 
+void \hyperlink{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}{get\+Expressions} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classBares_a5fdb9605f566885b1bd624b76030babf}{}\index{Bares@{Bares}!errors@{errors}}
+\index{errors@{errors}!Bares@{Bares}}
+\subsubsection[{errors}]{\setlength{\rightskip}{0pt plus 5cm}void Bares\+::errors (
+\begin{DoxyParamCaption}
+\item[{int}]{i, }
+\item[{{\bf Token}}]{tk}
+\end{DoxyParamCaption}
+)}\label{classBares_a5fdb9605f566885b1bd624b76030babf}
+função para chamada do tratamento de erro \hypertarget{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}{}\index{Bares@{Bares}!get\+Expressions@{get\+Expressions}}
+\index{get\+Expressions@{get\+Expressions}!Bares@{Bares}}
+\subsubsection[{get\+Expressions}]{\setlength{\rightskip}{0pt plus 5cm}void Bares\+::get\+Expressions (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}
+ção \hypertarget{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}{}\index{Bares@{Bares}!is\+Number@{is\+Number}}
+\index{is\+Number@{is\+Number}!Bares@{Bares}}
+\subsubsection[{is\+Number}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::is\+Number (
+\begin{DoxyParamCaption}
+\item[{string}]{str}
+\end{DoxyParamCaption}
+)}\label{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}
+verificando se o arquivo está vazio caso não, fazer a leitura das expressões e números até o fim do arquivo \hypertarget{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}{}\index{Bares@{Bares}!is\+Operator@{is\+Operator}}
+\index{is\+Operator@{is\+Operator}!Bares@{Bares}}
+\subsubsection[{is\+Operator}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::is\+Operator (
+\begin{DoxyParamCaption}
+\item[{string}]{ch}
+\end{DoxyParamCaption}
+)}\label{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}
+função para indicar quais operadores são reconhecidos \hypertarget{classBares_a66bbc9cb3231b4c6154667c2f4695d65}{}\index{Bares@{Bares}!read\+File@{read\+File}}
+\index{read\+File@{read\+File}!Bares@{Bares}}
+\subsubsection[{read\+File}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::read\+File (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classBares_a66bbc9cb3231b4c6154667c2f4695d65}
+função para leitura das expressões abertura do arquivo, leitura das expressões \hypertarget{classBares_a845256ca5c22ff7840f97a01650949c7}{}\index{Bares@{Bares}!testa\+Erros1a5@{testa\+Erros1a5}}
+\index{testa\+Erros1a5@{testa\+Erros1a5}!Bares@{Bares}}
+\subsubsection[{testa\+Erros1a5}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::testa\+Erros1a5 (
+\begin{DoxyParamCaption}
+\item[{string}]{, }
+\item[{string}]{}
+\end{DoxyParamCaption}
+)}\label{classBares_a845256ca5c22ff7840f97a01650949c7}
+utilizando a tokenização verifica o arquivo por linha procurando encontrar os erros 1 a 5 \hypertarget{classBares_aa31cf3da4e7e28ceb5da86e7118f30f6}{}\index{Bares@{Bares}!type@{type}}
+\index{type@{type}!Bares@{Bares}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::type (
+\begin{DoxyParamCaption}
+\item[{char}]{str}
+\end{DoxyParamCaption}
+)}\label{classBares_aa31cf3da4e7e28ceb5da86e7118f30f6}
+verifica se a string lida é válida como dígito (operador ou constante) \hypertarget{classBares_af362a384ef4500b25321b99f1e494e59}{}\index{Bares@{Bares}!type@{type}}
+\index{type@{type}!Bares@{Bares}}
+\subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::type (
+\begin{DoxyParamCaption}
+\item[{string}]{str}
+\end{DoxyParamCaption}
+)}\label{classBares_af362a384ef4500b25321b99f1e494e59}
+verifica se a string lida é válida como dígito numérico 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+headers/bares.\+hpp\item 
+src/\hyperlink{bares_8cpp}{bares.\+cpp}\end{DoxyCompactItemize}

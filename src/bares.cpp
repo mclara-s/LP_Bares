@@ -1,71 +1,21 @@
-/** @file bares.cpp
- *  Projeto Basic Arithmetic Expression Based on Stacks
- *
- *  O objetivo desde projeto é motivar o uso das estruturas de dados estudada, pilha e fila, no contexto
- * 	de uma aplicação real.
- */
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <cctype>
-#include <math.h>
-#include "../headers/stack.hpp"
-#include "../headers/queue.hpp"
+#include "../headers/bares.hpp"
 
-using namespace std;
-/**
- * @struct Token
-*/
-struct Token {
-	string str;
-	int col;
-	void print(){
-		cout << "(" << str << ", " << col << ")\n";
-	}
-
-	friend ostream& operator<<(ostream& os, const Token& tk)
-	{
-	    os << "(" << tk.str <<  ", " << tk.col << ")";
-	    return os;
-	}
-};
-/**
- * @readfile função para leitura das expressões
- * abertura do arquivo, leitura das expressões
-*/
-bool readFile(Queue<string> &expressions){
-	ifstream entryFile;
-	string expr;
-
-	entryFile.open("expressions.txt");
-	if (entryFile.is_open()){
-		while(!entryFile.eof()){
-			getline(entryFile, expr);
-			if (expr != "\n" && expr != " " && expr != "\t" && expr != "")
-				expressions.enqueue(expr);
-			expr.clear();
-		}
-		entryFile.close();
-		return true;
-	}
-	else
-		return false;
+Bares::Bares(){
+	infix.clear();
+	posfix.clear();
+	result = 0;
 }
-/**
-* @isoperator função para indicar quais operadores são reconhecidos
-*/
-bool isOperator(string ch){
+Bares::~Bares(){}
+
+bool Bares::isOperator(string ch){
 	if (ch == "*" || ch == "/" || ch == "+" || ch == "-" || ch == "(" || ch == ")" ||
 		ch == "\%" || ch == "$" || ch == "^")
 		return true;
 	else
 		return false;
 }
-/**
-* @isnumber verificando se o arquivo está vazio
-* caso não, fazer a leitura das expressões e números até o fim do arquivo
-*/
-bool isNumber(string str){
+
+bool Bares::isNumber(string str){
 	char ch;
 	if (str.empty())
 		return false;
@@ -77,10 +27,8 @@ bool isNumber(string str){
 	}
 	return true;
 }
-/**
-* @errors função para chamada do tratamento de erro
-*/
-void errors(int i, Token tk){
+
+void Bares::errors(int i, Token tk){
 	switch (i){
 		case 1:
 			cout << "Erro: coluna " << tk.col << " - Constante numerica invalida.\n";
@@ -110,29 +58,19 @@ void errors(int i, Token tk){
 			break; 
 	}
 }
-/**
-* @type verifica se a string lida é válida como dígito (operador ou constante)
-*/
-int type(char str){
+int Bares::type(char str){
 	if (isdigit(str))
 		return 1;
 	else
 		return 2;
 }
-/**
-* @type verifica se a string lida é válida como dígito numérico
-*/
-int type(string str){
+int Bares::type(string str){
 	if (isNumber(str))
 		return 1;
 	else
 		return 2;
 }
-/**
-* @testaerros1a5 utilizando a tokenização verifica o arquivo por linha
-* procurando encontrar os erros 1 a 5
-*/
-int testaErros1a5(string token, string lastToken){
+int Bares::testaErros1a5(string token, string lastToken){
 	//TESTE ERRO 1
 	if (isNumber(token)){
 		int i = stoi(token);
@@ -180,10 +118,7 @@ int testaErros1a5(string token, string lastToken){
 	else
 		return 0;
 }
-/**
-* @tokenização
-*/
-int tokenizacao (string expr, Queue<Token> &tokenQueue){
+int Bares::tokenizacao (string expr){
 	Token tk, lastTk;
 	int teste, coluna = 0;
 
@@ -198,7 +133,7 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 				}
 				lastTk.str = tk.str;
 				lastTk.col = tk.col;
-				tokenQueue.enqueue(tk);
+				infix.enqueue(tk);
 				tk.str.clear();
 				++coluna;
 			}
@@ -215,7 +150,7 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 			}
 			tk.col = coluna;
 		}
-		tokenQueue.enqueue(tk);
+		infix.enqueue(tk);
 		if (!expr.empty() && (expr.front() == ' ' || expr.front() == '\t')){
 			++coluna;
 			expr.erase(expr.begin());
@@ -231,7 +166,6 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 		lastTk.col = tk.col;
 		tk.str.clear();
 	}
-
 	/**
 	* @teste de erro 2 no final da expressão
 	*/
@@ -242,10 +176,8 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 
 	return 1;
 }
-/**
-* @prioridade indicação da prioridade dos operandos 
-*/
-int prioridade(string op){
+
+int Bares::prioridade(string op){
 	if (op == "$")
 		return 5;
 	if (op == "^")
@@ -257,19 +189,15 @@ int prioridade(string op){
 	if (op == ")" || op == "(")
 		return 1;
 }
-
-/**
-* @transformaparapos função para empilhar usando o método pós fixo transformando a expressão
-*/
-int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
+int Bares::transformaParaPos(){
 	Stack<Token> operators;
 	Token symb, topSymb;
 	int op;
 
-	while (!entrada.isEmpty()){
-		symb = entrada.dequeue();
+	while (!infix.isEmpty()){
+		symb = infix.dequeue();
 			if (!isOperator(symb.str)){
-					saida.enqueue(symb);
+					posfix.enqueue(symb);
 			}
 			else if (symb.str == "("){
 				operators.push(symb);}
@@ -278,7 +206,7 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 					topSymb = operators.pop();
 					if (topSymb.str == "$")
 						topSymb.str = "-";
-					saida.enqueue(topSymb);
+					posfix.enqueue(topSymb);
 				}
 				if (operators.isEmpty()){
 					errors(6, symb);
@@ -291,7 +219,7 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 					topSymb = operators.pop();
 					//if (topSymb.str == "$")
 					//	topSymb.str = "-";
-					saida.enqueue(topSymb);
+					posfix.enqueue(topSymb);
 				}
 				operators.push(symb);
 			}
@@ -303,14 +231,11 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 			errors(7, symb);
 			return -1;
 		}
-		saida.enqueue(symb);
+		posfix.enqueue(symb);
 	}
 	return 1;
 }
-/**
-* @calcula função para calcular as expressões matemáticas
-*/
-bool calcula(int op1, int op2, Token symb, int &result){
+bool Bares::calcula(int op1, int op2, Token symb){
 	if (symb.str == "*")
 		result = op1*op2;
 	if (symb.str == "/"){
@@ -331,61 +256,38 @@ bool calcula(int op1, int op2, Token symb, int &result){
 
 	return true;
 }
-/**
-* @calculaposf função para encontrar o resultado da expressão mesmo ela estando pós fixa
-*/
-bool calculaPosF(Queue<Token> &posfix, int &result){
+bool Bares::calculaPosF(string expr){
 	int op1, op2;
 	Token symb;
 	Stack<int>operandos;
 
-	while (!posfix.isEmpty()){
-		symb = posfix.dequeue();
-		if (isNumber(symb.str))
-			operandos.push(stoi(symb.str));
-		else if(symb.str == "$"){
-			op1 = operandos.pop();
-			result = op1*(-1);
-			operandos.push(result);
-		}
-		else{
-			op2 = operandos.pop();
-			op1 = operandos.pop();
-			if(calcula(op1, op2, symb, result))
+	tokenizacao(expr);
+	if(transformaParaPos()){
+		while (!posfix.isEmpty()){
+			symb = posfix.dequeue();
+			if (isNumber(symb.str))
+				operandos.push(stoi(symb.str));
+			else if(symb.str == "$"){
+				op1 = operandos.pop();
+				result = op1*(-1);
 				operandos.push(result);
-			else
-				return false;
+			}
+			else{
+				op2 = operandos.pop();
+				op1 = operandos.pop();
+				if(calcula(op1, op2, symb))
+					operandos.push(result);
+				else
+					return false;
+			}
 		}
+		result = operandos.pop();
+		return true;
 	}
-	result = operandos.pop();
-	return true;
+	else
+		return false;
 }
-/**
-* @main do projeto B.A.R.E.S.
-*/
-int main(){
-	Queue<Token> infix, posfix;
-	Queue<string> expressions;
-	Token t;
-	int result;
 
-	if (readFile(expressions)){
-		while (!expressions.isEmpty()){
-			cout << expressions.front() << endl;
-			if (!infix.isEmpty())
-				infix.clear();
-			if (!posfix.isEmpty())
-				posfix.clear();
-			tokenizacao(expressions.dequeue(), infix);
-			if (transformaParaPos(infix, posfix) > 0){
-				if(calculaPosF(posfix, result))
-					cout << result << endl;
-			}			
-		}
-	}
-	else{
-		cout << "Erro ao abrir o arquivo. Por favor, tente novamente.\n";
-	}
-	
-	return 0;
+int Bares::getResult(){
+	return result;
 }
