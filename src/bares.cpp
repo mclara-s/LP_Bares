@@ -72,7 +72,7 @@ int Bares::type(string str){
 }
 int Bares::testaErros1a5(string token, string lastToken){
 	/**
-	* @teste1
+	* teste1
 	*/
 	if (isNumber(token)){
 		int i = stoi(token);
@@ -80,24 +80,22 @@ int Bares::testaErros1a5(string token, string lastToken){
 			return 1;
 	}
 
-	/** @teste2 no meio da expressão
+	/** teste2 no meio da expressão
 	*/
 	if (isOperator(token) && isOperator(lastToken) && 
 		token != "(" && token != ")" && token != "$" && lastToken!= "(" && lastToken!=")"){
-		//cout <<"teste 2.1\n";
 		return 2;
 	}
 	if (token == ")" && (isOperator(lastToken) && lastToken!= ")")){
-		//cout <<"teste 2.2\n";
 		return 2;
 	}
 	if (lastToken == "(" && (token!= "$" && token != "(" && !isNumber(token))){
-		//cout <<"teste 2.3\n";
+
 		return 2;
 	}
 
 	/**
-	* @teste3e4
+	* teste 3 e 4
 	*/
 	if (!isNumber(token) && !isOperator(token)){
 		if ((token.front() >= 65 && token.front() <= 90) || (token.front() >= 97 && token.front() <= 122))
@@ -107,14 +105,12 @@ int Bares::testaErros1a5(string token, string lastToken){
 	}
 
 	/**
-	* @teste5
+	* teste5
 	*/
 	if (isNumber(token) && isNumber(lastToken)){
-		//cout <<"teste 5.1\n";
 		return 5;
 	}
 	if (token == "(" && ((!isOperator(lastToken) && lastToken != "") || lastToken == ")")){
-		//cout <<"teste 5.2\n";
 		return 5;
 	}
 	else
@@ -169,7 +165,7 @@ int Bares::tokenizacao (string expr){
 		tk.str.clear();
 	}
 	/**
-	* @teste2 no final da expressão
+	* teste2 no final da expressão
 	*/
 	if (isOperator(lastTk.str) && lastTk.str != ")"){
 		errors(2, lastTk);
@@ -214,13 +210,11 @@ int Bares::transformaParaPos(){
 					errors(6, symb);
 					return -1;
 				}
-				operators.pop(); /** @remove o operador'('*/
+				operators.pop(); /** remove o operador'('*/
 			}
 			else{
 				while(!operators.isEmpty() && prioridade(operators.top().str) >= prioridade(symb.str)){
 					topSymb = operators.pop();
-					//if (topSymb.str == "$")
-					//	topSymb.str = "-";
 					posfix.enqueue(topSymb);
 				}
 				operators.push(symb);

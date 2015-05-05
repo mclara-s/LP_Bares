@@ -93,8 +93,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a66bbc9cb3231b4c6154667c2f4695d65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a66bbc9cb3231b4c6154667c2f4695d65">readFile</a> ()</td></tr>
-<tr class="separator:a66bbc9cb3231b4c6154667c2f4695d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7099edd8b6847c430a86b5ad8c8a67e8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a7099edd8b6847c430a86b5ad8c8a67e8">isOperator</a> (string)</td></tr>
 <tr class="separator:a7099edd8b6847c430a86b5ad8c8a67e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2c9417ba43ecbf6a1731e7b78f127e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#ac2c9417ba43ecbf6a1731e7b78f127e9">isNumber</a> (string)</td></tr>
@@ -107,10 +105,82 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af362a384ef4500b25321b99f1e494e59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a845256ca5c22ff7840f97a01650949c7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a845256ca5c22ff7840f97a01650949c7">testaErros1a5</a> (string, string)</td></tr>
 <tr class="separator:a845256ca5c22ff7840f97a01650949c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e216c3f069987e6b5402ecd5e55dcc9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a9e216c3f069987e6b5402ecd5e55dcc9">getExpressions</a> ()</td></tr>
-<tr class="separator:a9e216c3f069987e6b5402ecd5e55dcc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0fec70452075bb8f1137b620ddb9c404"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a0fec70452075bb8f1137b620ddb9c404">tokenizacao</a> (string)</td></tr>
+<tr class="separator:a0fec70452075bb8f1137b620ddb9c404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b64240266d8df966666db231ce50de"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a76b64240266d8df966666db231ce50de">prioridade</a> (string)</td></tr>
+<tr class="separator:a76b64240266d8df966666db231ce50de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e756074dd60f5fae9b76a87bc71a854"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a3e756074dd60f5fae9b76a87bc71a854">transformaParaPos</a> ()</td></tr>
+<tr class="separator:a3e756074dd60f5fae9b76a87bc71a854"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58727037a5fab7598830f0ec4d242d8c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a58727037a5fab7598830f0ec4d242d8c">calcula</a> (int, int, <a class="el" href="structToken.html">Token</a>)</td></tr>
+<tr class="separator:a58727037a5fab7598830f0ec4d242d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404b6eb76c4370c660c57aedafcfe943"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a404b6eb76c4370c660c57aedafcfe943">calculaPosF</a> (string)</td></tr>
+<tr class="separator:a404b6eb76c4370c660c57aedafcfe943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a017a532e599d739e926f81fa5678b965"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a017a532e599d739e926f81fa5678b965">getResult</a> ()</td></tr>
+<tr class="separator:a017a532e599d739e926f81fa5678b965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>iremos utilizar e suas chamadas de métodos </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a58727037a5fab7598830f0ec4d242d8c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Bares::calcula </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>op1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>op2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structToken.html">Token</a>&#160;</td>
+          <td class="paramname"><em>symb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>função para calcular as expressões matemáticas </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">valores</td><td>int e <a class="el" href="structToken.html">Token</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a404b6eb76c4370c660c57aedafcfe943"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Bares::calculaPosF </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>expr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>função para encontrar o resultado da expressão </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>pois recebe operadores e operandos </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a5fdb9605f566885b1bd624b76030babf"></a>
 <div class="memitem">
 <div class="memproto">
@@ -134,23 +204,28 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>função para chamada do tratamento de erro </p>
+<p>função para chamada do tratamento de erro </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">int,<a class="el" href="structToken.html">Token</a></td><td>receberá os erros </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a class="anchor" id="a9e216c3f069987e6b5402ecd5e55dcc9"></a>
+<a class="anchor" id="a017a532e599d739e926f81fa5678b965"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Bares::getExpressions </td>
+          <td class="memname">int Bares::getResult </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>ção </p>
+<p>função para mostrar o resultado da função calcula </p>
 
 </div>
 </div>
@@ -167,7 +242,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>verificando se o arquivo está vazio caso não, fazer a leitura das expressões e números até o fim do arquivo </p>
+<p>verificando se o arquivo está vazio caso não, fazer a leitura das expressões e números até o fim do arquivo </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>verifica expressões (operandos e operadores) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -184,23 +264,29 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>função para indicar quais operadores são reconhecidos </p>
+<p>função para leitura das expressões, abertura do arquivo, leitura das expressões  função para indicar quais operadores são reconhecidos  verifica operadores </p>
 
 </div>
 </div>
-<a class="anchor" id="a66bbc9cb3231b4c6154667c2f4695d65"></a>
+<a class="anchor" id="a76b64240266d8df966666db231ce50de"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool Bares::readFile </td>
+          <td class="memname">int Bares::prioridade </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>op</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>função para leitura das expressões abertura do arquivo, leitura das expressões </p>
+<p>indicação da prioridade dos operandos </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>verifica operandos para calcular na prioridade informada </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -212,13 +298,13 @@ Public Member Functions</h2></td></tr>
           <td class="memname">int Bares::testaErros1a5 </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>token</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">string&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramname"><em>lastToken</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -227,7 +313,53 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>utilizando a tokenização verifica o arquivo por linha procurando encontrar os erros 1 a 5 </p>
+<p>utilizando a tokenização verifica o arquivo por linha verificando se existem os erros 1 a 5 </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>verifica operandos e operadores </td></tr>
+  </table>
+  </dd>
+</dl>
+<p>no meio da expressão</p>
+
+</div>
+</div>
+<a class="anchor" id="a0fec70452075bb8f1137b620ddb9c404"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Bares::tokenizacao </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>expr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ção </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<p>no final da expressão</p>
+
+</div>
+</div>
+<a class="anchor" id="a3e756074dd60f5fae9b76a87bc71a854"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int Bares::transformaParaPos </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>função para empilhar usando o método pós fixo transformando a expressão </p>
+<p>o operador'(' </p>
 
 </div>
 </div>
@@ -244,7 +376,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>verifica se a string lida é válida como dígito (operador ou constante) </p>
+<p>-char verifica se a string lida é válida como dígito (operador ou constante) </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">char</td><td>para receber apenas dígito </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -261,7 +398,7 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>verifica se a string lida é válida como dígito numérico </p>
+<p>-string verifica se a string lida é válida como dígito numérico  verifica dígito numérico </p>
 
 </div>
 </div>
@@ -272,7 +409,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 5 2015 12:26:19 for LP_Bares by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 5 2015 16:26:35 for LP_Bares by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

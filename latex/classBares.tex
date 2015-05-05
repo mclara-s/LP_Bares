@@ -3,8 +3,6 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-bool \hyperlink{classBares_a66bbc9cb3231b4c6154667c2f4695d65}{read\+File} ()
-\item 
 bool \hyperlink{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}{is\+Operator} (string)
 \item 
 bool \hyperlink{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}{is\+Number} (string)
@@ -17,11 +15,50 @@ int \hyperlink{classBares_af362a384ef4500b25321b99f1e494e59}{type} (string)
 \item 
 int \hyperlink{classBares_a845256ca5c22ff7840f97a01650949c7}{testa\+Erros1a5} (string, string)
 \item 
-void \hyperlink{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}{get\+Expressions} ()
+int \hyperlink{classBares_a0fec70452075bb8f1137b620ddb9c404}{tokenizacao} (string)
+\item 
+int \hyperlink{classBares_a76b64240266d8df966666db231ce50de}{prioridade} (string)
+\item 
+int \hyperlink{classBares_a3e756074dd60f5fae9b76a87bc71a854}{transforma\+Para\+Pos} ()
+\item 
+bool \hyperlink{classBares_a58727037a5fab7598830f0ec4d242d8c}{calcula} (int, int, \hyperlink{structToken}{Token})
+\item 
+bool \hyperlink{classBares_a404b6eb76c4370c660c57aedafcfe943}{calcula\+Pos\+F} (string)
+\item 
+int \hyperlink{classBares_a017a532e599d739e926f81fa5678b965}{get\+Result} ()
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+iremos utilizar e suas chamadas de métodos 
+
 \subsection{Member Function Documentation}
+\hypertarget{classBares_a58727037a5fab7598830f0ec4d242d8c}{}\index{Bares@{Bares}!calcula@{calcula}}
+\index{calcula@{calcula}!Bares@{Bares}}
+\subsubsection[{calcula}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::calcula (
+\begin{DoxyParamCaption}
+\item[{int}]{op1, }
+\item[{int}]{op2, }
+\item[{{\bf Token}}]{symb}
+\end{DoxyParamCaption}
+)}\label{classBares_a58727037a5fab7598830f0ec4d242d8c}
+função para calcular as expressões matemáticas 
+\begin{DoxyParams}{Parameters}
+{\em valores} & int e \hyperlink{structToken}{Token} \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBares_a404b6eb76c4370c660c57aedafcfe943}{}\index{Bares@{Bares}!calcula\+Pos\+F@{calcula\+Pos\+F}}
+\index{calcula\+Pos\+F@{calcula\+Pos\+F}!Bares@{Bares}}
+\subsubsection[{calcula\+Pos\+F}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::calcula\+Pos\+F (
+\begin{DoxyParamCaption}
+\item[{string}]{expr}
+\end{DoxyParamCaption}
+)}\label{classBares_a404b6eb76c4370c660c57aedafcfe943}
+função para encontrar o resultado da expressão 
+\begin{DoxyParams}{Parameters}
+{\em string} & pois recebe operadores e operandos \\
+\hline
+\end{DoxyParams}
 \hypertarget{classBares_a5fdb9605f566885b1bd624b76030babf}{}\index{Bares@{Bares}!errors@{errors}}
 \index{errors@{errors}!Bares@{Bares}}
 \subsubsection[{errors}]{\setlength{\rightskip}{0pt plus 5cm}void Bares\+::errors (
@@ -30,57 +67,101 @@ void \hyperlink{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}{get\+Expressions} 
 \item[{{\bf Token}}]{tk}
 \end{DoxyParamCaption}
 )}\label{classBares_a5fdb9605f566885b1bd624b76030babf}
-função para chamada do tratamento de erro \hypertarget{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}{}\index{Bares@{Bares}!get\+Expressions@{get\+Expressions}}
-\index{get\+Expressions@{get\+Expressions}!Bares@{Bares}}
-\subsubsection[{get\+Expressions}]{\setlength{\rightskip}{0pt plus 5cm}void Bares\+::get\+Expressions (
+função para chamada do tratamento de erro 
+\begin{DoxyParams}{Parameters}
+{\em int,\hyperlink{structToken}{Token}} & receberá os erros \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBares_a017a532e599d739e926f81fa5678b965}{}\index{Bares@{Bares}!get\+Result@{get\+Result}}
+\index{get\+Result@{get\+Result}!Bares@{Bares}}
+\subsubsection[{get\+Result}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::get\+Result (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\label{classBares_a9e216c3f069987e6b5402ecd5e55dcc9}
-ção \hypertarget{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}{}\index{Bares@{Bares}!is\+Number@{is\+Number}}
+)}\label{classBares_a017a532e599d739e926f81fa5678b965}
+função para mostrar o resultado da função calcula \hypertarget{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}{}\index{Bares@{Bares}!is\+Number@{is\+Number}}
 \index{is\+Number@{is\+Number}!Bares@{Bares}}
 \subsubsection[{is\+Number}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::is\+Number (
 \begin{DoxyParamCaption}
 \item[{string}]{str}
 \end{DoxyParamCaption}
 )}\label{classBares_ac2c9417ba43ecbf6a1731e7b78f127e9}
-verificando se o arquivo está vazio caso não, fazer a leitura das expressões e números até o fim do arquivo \hypertarget{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}{}\index{Bares@{Bares}!is\+Operator@{is\+Operator}}
+verificando se o arquivo está vazio caso não, fazer a leitura das expressões e números até o fim do arquivo 
+\begin{DoxyParams}{Parameters}
+{\em string} & verifica expressões (operandos e operadores) \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}{}\index{Bares@{Bares}!is\+Operator@{is\+Operator}}
 \index{is\+Operator@{is\+Operator}!Bares@{Bares}}
 \subsubsection[{is\+Operator}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::is\+Operator (
 \begin{DoxyParamCaption}
 \item[{string}]{ch}
 \end{DoxyParamCaption}
 )}\label{classBares_a7099edd8b6847c430a86b5ad8c8a67e8}
-função para indicar quais operadores são reconhecidos \hypertarget{classBares_a66bbc9cb3231b4c6154667c2f4695d65}{}\index{Bares@{Bares}!read\+File@{read\+File}}
-\index{read\+File@{read\+File}!Bares@{Bares}}
-\subsubsection[{read\+File}]{\setlength{\rightskip}{0pt plus 5cm}bool Bares\+::read\+File (
+função para leitura das expressões, abertura do arquivo, leitura das expressões  função para indicar quais operadores são reconhecidos  verifica operadores \hypertarget{classBares_a76b64240266d8df966666db231ce50de}{}\index{Bares@{Bares}!prioridade@{prioridade}}
+\index{prioridade@{prioridade}!Bares@{Bares}}
+\subsubsection[{prioridade}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::prioridade (
 \begin{DoxyParamCaption}
-{}
+\item[{string}]{op}
 \end{DoxyParamCaption}
-)}\label{classBares_a66bbc9cb3231b4c6154667c2f4695d65}
-função para leitura das expressões abertura do arquivo, leitura das expressões \hypertarget{classBares_a845256ca5c22ff7840f97a01650949c7}{}\index{Bares@{Bares}!testa\+Erros1a5@{testa\+Erros1a5}}
+)}\label{classBares_a76b64240266d8df966666db231ce50de}
+indicação da prioridade dos operandos 
+\begin{DoxyParams}{Parameters}
+{\em string} & verifica operandos para calcular na prioridade informada \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBares_a845256ca5c22ff7840f97a01650949c7}{}\index{Bares@{Bares}!testa\+Erros1a5@{testa\+Erros1a5}}
 \index{testa\+Erros1a5@{testa\+Erros1a5}!Bares@{Bares}}
 \subsubsection[{testa\+Erros1a5}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::testa\+Erros1a5 (
 \begin{DoxyParamCaption}
-\item[{string}]{, }
-\item[{string}]{}
+\item[{string}]{token, }
+\item[{string}]{last\+Token}
 \end{DoxyParamCaption}
 )}\label{classBares_a845256ca5c22ff7840f97a01650949c7}
-utilizando a tokenização verifica o arquivo por linha procurando encontrar os erros 1 a 5 \hypertarget{classBares_aa31cf3da4e7e28ceb5da86e7118f30f6}{}\index{Bares@{Bares}!type@{type}}
+utilizando a tokenização verifica o arquivo por linha verificando se existem os erros 1 a 5 
+\begin{DoxyParams}{Parameters}
+{\em string} & verifica operandos e operadores \\
+\hline
+\end{DoxyParams}
+no meio da expressão\hypertarget{classBares_a0fec70452075bb8f1137b620ddb9c404}{}\index{Bares@{Bares}!tokenizacao@{tokenizacao}}
+\index{tokenizacao@{tokenizacao}!Bares@{Bares}}
+\subsubsection[{tokenizacao}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::tokenizacao (
+\begin{DoxyParamCaption}
+\item[{string}]{expr}
+\end{DoxyParamCaption}
+)}\label{classBares_a0fec70452075bb8f1137b620ddb9c404}
+ção 
+\begin{DoxyParams}{Parameters}
+{\em string} & \\
+\hline
+\end{DoxyParams}
+no final da expressão\hypertarget{classBares_a3e756074dd60f5fae9b76a87bc71a854}{}\index{Bares@{Bares}!transforma\+Para\+Pos@{transforma\+Para\+Pos}}
+\index{transforma\+Para\+Pos@{transforma\+Para\+Pos}!Bares@{Bares}}
+\subsubsection[{transforma\+Para\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::transforma\+Para\+Pos (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classBares_a3e756074dd60f5fae9b76a87bc71a854}
+função para empilhar usando o método pós fixo transformando a expressão o operador\textquotesingle{}(\textquotesingle{} \hypertarget{classBares_aa31cf3da4e7e28ceb5da86e7118f30f6}{}\index{Bares@{Bares}!type@{type}}
 \index{type@{type}!Bares@{Bares}}
 \subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::type (
 \begin{DoxyParamCaption}
 \item[{char}]{str}
 \end{DoxyParamCaption}
 )}\label{classBares_aa31cf3da4e7e28ceb5da86e7118f30f6}
-verifica se a string lida é válida como dígito (operador ou constante) \hypertarget{classBares_af362a384ef4500b25321b99f1e494e59}{}\index{Bares@{Bares}!type@{type}}
+-\/char verifica se a string lida é válida como dígito (operador ou constante) 
+\begin{DoxyParams}{Parameters}
+{\em char} & para receber apenas dígito \\
+\hline
+\end{DoxyParams}
+\hypertarget{classBares_af362a384ef4500b25321b99f1e494e59}{}\index{Bares@{Bares}!type@{type}}
 \index{type@{type}!Bares@{Bares}}
 \subsubsection[{type}]{\setlength{\rightskip}{0pt plus 5cm}int Bares\+::type (
 \begin{DoxyParamCaption}
 \item[{string}]{str}
 \end{DoxyParamCaption}
 )}\label{classBares_af362a384ef4500b25321b99f1e494e59}
-verifica se a string lida é válida como dígito numérico 
+-\/string verifica se a string lida é válida como dígito numérico  verifica dígito numérico 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
