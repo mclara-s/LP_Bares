@@ -1,5 +1,9 @@
-	//PARA COMPILAR: g++ main.cpp -std=c++11 -o programa
-
+/** @file bares.cpp
+ *  Projeto Basic Arithmetic Expression Based on Stacks
+ *
+ *  O objetivo desde projeto é motivar o uso das estruturas de dados estudada, pilha e fila, no contexto
+ * 	de uma aplicação real.
+ */
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -9,7 +13,9 @@
 #include "../headers/queue.hpp"
 
 using namespace std;
-
+/**
+ * @struct Token
+*/
 struct Token {
 	string str;
 	int col;
@@ -23,7 +29,10 @@ struct Token {
 	    return os;
 	}
 };
-
+/**
+ * @readfile função para leitura das expressões
+ * abertura do arquivo, leitura das expressões
+*/
 bool readFile(Queue<string> &expressions){
 	ifstream entryFile;
 	string expr;
@@ -42,7 +51,9 @@ bool readFile(Queue<string> &expressions){
 	else
 		return false;
 }
-
+/**
+* @isoperator função para indicar quais operadores são reconhecidos
+*/
 bool isOperator(string ch){
 	if (ch == "*" || ch == "/" || ch == "+" || ch == "-" || ch == "(" || ch == ")" ||
 		ch == "\%" || ch == "$" || ch == "^")
@@ -50,7 +61,10 @@ bool isOperator(string ch){
 	else
 		return false;
 }
-
+/**
+* @isnumber verificando se o arquivo está vazio
+* caso não, fazer a leitura das expressões e números até o fim do arquivo
+*/
 bool isNumber(string str){
 	char ch;
 	if (str.empty())
@@ -63,11 +77,13 @@ bool isNumber(string str){
 	}
 	return true;
 }
-
+/**
+* @errors função para chamada do tratamento de erro
+*/
 void errors(int i, Token tk){
 	switch (i){
 		case 1:
-			cout << "Erro: coluna " << tk.col << " - Constate numerica invalida.\n";
+			cout << "Erro: coluna " << tk.col << " - Constante numerica invalida.\n";
 			break;
 		case 2:
 			cout << "Erro: coluna " << tk.col << " - Falta operando.\n";
@@ -94,21 +110,28 @@ void errors(int i, Token tk){
 			break; 
 	}
 }
-
+/**
+* @type verifica se a string lida é válida como dígito (operador ou constante)
+*/
 int type(char str){
 	if (isdigit(str))
 		return 1;
 	else
 		return 2;
 }
-
+/**
+* @type verifica se a string lida é válida como dígito numérico
+*/
 int type(string str){
 	if (isNumber(str))
 		return 1;
 	else
 		return 2;
 }
-
+/**
+* @testaerros1a5 utilizando a tokenização verifica o arquivo por linha
+* procurando encontrar os erros 1 a 5
+*/
 int testaErros1a5(string token, string lastToken){
 	//TESTE ERRO 1
 	if (isNumber(token)){
@@ -117,7 +140,8 @@ int testaErros1a5(string token, string lastToken){
 			return 1;
 	}
 
-	//TESTE ERRO 2 NO MEIO DA EXPRESSAO
+	/** @teste erro 2 no meio da expressão
+	*/
 	if (isOperator(token) && isOperator(lastToken) && 
 		token != "(" && token != ")" && token != "$" && lastToken!= "(" && lastToken!=")"){
 		//cout <<"teste 2.1\n";
@@ -132,7 +156,9 @@ int testaErros1a5(string token, string lastToken){
 		return 2;
 	}
 
-	//TESTE ERRO 3 e 4
+	/**
+	* @teste erro 3 e 4
+	*/
 	if (!isNumber(token) && !isOperator(token)){
 		if ((token.front() >= 65 && token.front() <= 90) || (token.front() >= 97 && token.front() <= 122))
 			return 3;
@@ -140,7 +166,9 @@ int testaErros1a5(string token, string lastToken){
 			return 4;
 	}
 
-	//TESTE ERRO 5
+	/**
+	* @teste erro 5
+	*/
 	if (isNumber(token) && isNumber(lastToken)){
 		//cout <<"teste 5.1\n";
 		return 5;
@@ -152,7 +180,9 @@ int testaErros1a5(string token, string lastToken){
 	else
 		return 0;
 }
-
+/**
+* @tokenização
+*/
 int tokenizacao (string expr, Queue<Token> &tokenQueue){
 	Token tk, lastTk;
 	int teste, coluna = 0;
@@ -202,7 +232,9 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 		tk.str.clear();
 	}
 
-	//TESTE ERRO 2 FINAL DA EXPRESSAO
+	/**
+	* @teste de erro 2 no final da expressão
+	*/
 	if (isOperator(lastTk.str) && lastTk.str != ")"){
 		errors(2, lastTk);
 		return -1;
@@ -210,7 +242,9 @@ int tokenizacao (string expr, Queue<Token> &tokenQueue){
 
 	return 1;
 }
-
+/**
+* @prioridade indicação da prioridade dos operandos 
+*/
 int prioridade(string op){
 	if (op == "$")
 		return 5;
@@ -224,7 +258,9 @@ int prioridade(string op){
 		return 1;
 }
 
-
+/**
+* @transformaparapos função para empilhar usando o método pós fixo transformando a expressão
+*/
 int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 	Stack<Token> operators;
 	Token symb, topSymb;
@@ -248,7 +284,7 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 					errors(6, symb);
 					return -1;
 				}
-				operators.pop(); // remove o '(';
+				operators.pop(); /** remove o '('*/
 			}
 			else{
 				while(!operators.isEmpty() && prioridade(operators.top().str) >= prioridade(symb.str)){
@@ -271,7 +307,9 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 	}
 	return 1;
 }
-
+/**
+* @calcula função para calcular as expressões matemáticas
+*/
 bool calcula(int op1, int op2, Token symb, int &result){
 	if (symb.str == "*")
 		result = op1*op2;
@@ -293,7 +331,9 @@ bool calcula(int op1, int op2, Token symb, int &result){
 
 	return true;
 }
-
+/**
+* @calculaposf função para encontrar o resultado da expressão mesmo ela estando pós fixa
+*/
 bool calculaPosF(Queue<Token> &posfix, int &result){
 	int op1, op2;
 	Token symb;
@@ -320,7 +360,9 @@ bool calculaPosF(Queue<Token> &posfix, int &result){
 	result = operandos.pop();
 	return true;
 }
-
+/**
+* @main do projeto B.A.R.E.S.
+*/
 int main(){
 	Queue<Token> infix, posfix;
 	Queue<string> expressions;
