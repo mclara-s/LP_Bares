@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['deque',['Deque',['../classDeque.html',1,'']]]
+  ['classe',['Classe',['../classClasse.html',1,'']]]
 ];

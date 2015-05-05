@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['sequence',['Sequence',['../classSequence.html',1,'']]],
-  ['sequence_3c_20token_20_3e',['Sequence&lt; Token &gt;',['../classSequence.html',1,'']]],
-  ['stack',['Stack',['../classStack.html',1,'']]]
+  ['queue',['Queue',['../classQueue.html',1,'']]],
+  ['queue_3c_20token_20_3e',['Queue&lt; Token &gt;',['../classQueue.html',1,'']]]
 ];

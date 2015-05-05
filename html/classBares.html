@@ -118,9 +118,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a017a532e599d739e926f81fa5678b965"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBares.html#a017a532e599d739e926f81fa5678b965">getResult</a> ()</td></tr>
 <tr class="separator:a017a532e599d739e926f81fa5678b965"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>iremos utilizar e suas chamadas de métodos </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a58727037a5fab7598830f0ec4d242d8c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -152,7 +150,9 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>função para calcular as expressões matemáticas </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">valores</td><td>int e <a class="el" href="structToken.html">Token</a> </td></tr>
+    <tr><td class="paramname">int</td><td>valor numerico inicial </td></tr>
+    <tr><td class="paramname">int</td><td>proximo valor numerico </td></tr>
+    <tr><td class="paramname"><a class="el" href="structToken.html">Token</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -174,7 +174,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>função para encontrar o resultado da expressão </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>pois recebe operadores e operandos </td></tr>
+    <tr><td class="paramname">string</td><td>recebe operadores e operandos </td></tr>
   </table>
   </dd>
 </dl>
@@ -206,7 +206,8 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>função para chamada do tratamento de erro </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">int,<a class="el" href="structToken.html">Token</a></td><td>receberá os erros </td></tr>
+    <tr><td class="paramname">int</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="structToken.html">Token</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -264,7 +265,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>função para leitura das expressões, abertura do arquivo, leitura das expressões  função para indicar quais operadores são reconhecidos  verifica operadores </p>
+<p>função para indicar quais operadores são reconhecidos </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -315,11 +321,15 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>utilizando a tokenização verifica o arquivo por linha verificando se existem os erros 1 a 5 </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">string</td><td>verifica operandos e operadores </td></tr>
+    <tr><td class="paramname">string</td><td>verifica operandos </td></tr>
+    <tr><td class="paramname">string</td><td>verifica operadores </td></tr>
   </table>
   </dd>
 </dl>
-<p>no meio da expressão</p>
+<p>teste1</p>
+<p>teste2 no meio da expressão</p>
+<p>teste 3 e 4</p>
+<p>teste5</p>
 
 </div>
 </div>
@@ -336,13 +346,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>ção </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">string</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<p>no final da expressão</p>
+<p>teste2 no final da expressão</p>
 
 </div>
 </div>
@@ -359,7 +369,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>função para empilhar usando o método pós fixo transformando a expressão </p>
-<p>o operador'(' </p>
+<p>remove o operador'(' </p>
 
 </div>
 </div>
@@ -376,9 +386,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>-char verifica se a string lida é válida como dígito (operador ou constante) </p><dl class="params"><dt>Parameters</dt><dd>
+<p>verifica se a string lida é válida como dígito (operador ou constante) </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">char</td><td>para receber apenas dígito </td></tr>
+    <tr><td class="paramname">char</td><td>para receber operador ou constante </td></tr>
   </table>
   </dd>
 </dl>
@@ -398,7 +408,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>-string verifica se a string lida é válida como dígito numérico  verifica dígito numérico </p>
+<p>verifica se a string lida é válida como dígito numérico </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>verifica dígito numérico </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -409,7 +424,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue May 5 2015 16:26:35 for LP_Bares by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 5 2015 16:37:38 for LP_Bares by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
