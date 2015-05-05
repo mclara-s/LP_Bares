@@ -88,7 +88,7 @@ void errors(int i, Token tk){
 			cout << "Erro: coluna " << tk.col << " - Escopo aberto.\n";
 			break;
 		case 8:
-			cout << "Erro: coluna " << tk.col << " - Divisao por zero!\n";
+			cout << "Erro: coluna " << tk.col+1 << " - Divisao por zero!\n";
 			break;
 		default:
 			break; 
@@ -272,23 +272,30 @@ int transformaParaPos(Queue<Token> &entrada, Queue<Token> &saida){
 	return 1;
 }
 
-int calcula(int op1, int op2, string symb){
-	if (symb == "*")
-		return op1*op2;
-	if (symb == "/")
-		return op1/op2;
-	if (symb == "+")
-		return op1 + op2;
-	if (symb == "-")
-		return op1 - op2;
-	if (symb == "\%")
-		return op1%op2;
-	if (symb == "^")
-		return pow(op1,op2);
+bool calcula(int op1, int op2, Token symb, int &result){
+	if (symb.str == "*")
+		result = op1*op2;
+	if (symb.str == "/"){
+		if (op2 == 0){
+			errors(8, symb);
+			return false;
+		}
+		result = op1/op2;
+	}
+	if (symb.str == "+")
+		result = op1 + op2;
+	if (symb.str == "-")
+		result = op1 - op2;
+	if (symb.str == "\%")
+		result = op1%op2;
+	if (symb.str == "^")
+		result = pow(op1,op2);
+
+	return true;
 }
 
-int calculaPosF(Queue<Token> &posfix){
-	int result, op1, op2;
+bool calculaPosF(Queue<Token> &posfix, int &result){
+	int op1, op2;
 	Token symb;
 	Stack<int>operandos;
 
@@ -304,21 +311,21 @@ int calculaPosF(Queue<Token> &posfix){
 		else{
 			op2 = operandos.pop();
 			op1 = operandos.pop();
-			result = calcula(op1, op2, symb.str);
-			operandos.push(result);
+			if(calcula(op1, op2, symb, result))
+				operandos.push(result);
+			else
+				return false;
 		}
 	}
 	result = operandos.pop();
-	cout << "posfix:\n";
-	posfix.print();
-	return result;
+	return true;
 }
 
 int main(){
 	Queue<Token> infix, posfix;
 	Queue<string> expressions;
 	Token t;
-	int result = 0;
+	int result;
 
 	if (readFile(expressions)){
 		while (!expressions.isEmpty()){
@@ -327,31 +334,16 @@ int main(){
 				infix.clear();
 			if (!posfix.isEmpty())
 				posfix.clear();
-			tokenizacao(expressions.dequeue(), infix); //OBS: CORRIGIR TOKENIZAÇÃO
-			/*while(!infix.isEmpty()){
-				t = infix.dequeue();
-				t.print();
-				
-			}*/
-			//infix.print();
-			//transformaParaPos(infix,posfix);
-			posfix.print();
+			tokenizacao(expressions.dequeue(), infix);
 			if (transformaParaPos(infix, posfix) > 0){
-				posfix.print();
-				result = calculaPosF(posfix);
-				cout << result << endl;
+				if(calculaPosF(posfix, result))
+					cout << result << endl;
 			}			
 		}
 	}
 	else{
 		cout << "Erro ao abrir o arquivo. Por favor, tente novamente.\n";
 	}
-	//cout << "expressions:\n";
-	//expressions.print();
-	//cout << "posfix:\n";	
-	//posfix.print();
-	//cout << "infix:\n";
-	//infix.print();
 	
 	return 0;
 }
