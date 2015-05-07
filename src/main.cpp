@@ -17,7 +17,7 @@ bool readFile(Queue<string> &expressions){
 	ifstream entryFile;
 	string expr;
 
-	entryFile.open("expressions.txt");
+	entryFile.open("src/expressions.txt");
 	if (entryFile.is_open()){
 		while(!entryFile.eof()){
 			getline(entryFile, expr);

@@ -13,4 +13,4 @@ bares:
 	$(CC) $(CFLAGS) $(OBJS) -o bares
  
 clean:
-	rm -f $(OBJS) bares
+	rm  bares

@@ -254,8 +254,13 @@ bool Bares::calculaPosF(string expr){
 	int op1, op2;
 	Token symb;
 	Stack<int>operandos;
+	if (!posfix.isEmpty())
+		posfix.clear();
+	if(!infix.isEmpty())
+		infix.clear();
 	if (tokenizacao(expr) != -1){
 		if(transformaParaPos() != -1){
+			//posfix.print();
 			while (!posfix.isEmpty()){
 				symb = posfix.dequeue();
 				if (isNumber(symb.str))
