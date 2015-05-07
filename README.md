@@ -1,5 +1,5 @@
 <h1>##Trabalho de Laboratorio de Programação I ##</h1>
-Autoras: Ana Clara e Maria Clara
+Autoras: Ana Clara (github.com/claranobre) e Maria Clara (github.com/mclara-s)
 
 <h1>** PROJETO B.A.R.E.S. **</h1>
 
@@ -14,6 +14,8 @@ Autoras: Ana Clara e Maria Clara
 <h5>Ao terminar o comando será criado o objeto executável denominado "bares"</h5>
 <h5>Para executá-lo o usuário precisa digitar "./bares"</h5>
 <h5>O programa irá ler o documento "expressions.txt" e irá retornar os resultados das expressões listadas, ou erros que forem encontrados em cada expressão.</h5>
+<h5>Ao terminar de executar o programa, se caso o usuário quiser testar alguma modificação no código original, na compilação após essa alteração, antes de dar o comando "make" será necessário excluir com o comando *rm bares* o objeto da compilação anterior</h5>
+<h5>Caso o usuário só quiser modificar o arquivo "expressions.txt" para testar outras expressões, ele só precisará ir no diretório *src* e editar o arquivo, salvar e executar o programa (./bares). </h5> 
 
 <h1>**Verificação de Vazamento de Memória** </h1>
 
@@ -21,3 +23,7 @@ Autoras: Ana Clara e Maria Clara
 <h5>O usuário após compilar e criar o objeto deve escrever no Terminal:</h5>
 
 *valgrind --leak-check=full ./bares*
+
+<h1>**Documentação**</h1>
+
+<h5> Foi utilizada a ferramenta Doxygen para auxiliar na documentação da execução desse projeto, para o usuário visualizar é necessário entrar no diretório "html" e acessar o arquivo index.html, logo a documentação será aberta em modo offline em seu navegador padrão</h5>

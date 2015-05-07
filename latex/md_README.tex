@@ -1,6 +1,6 @@
 \section*{\#\#\+Trabalho de Laboratorio de Programação I \#\#}
 
-Autoras\+: Ana Clara e Maria Clara
+Autoras\+: Ana Clara (github.\+com/claranobre) e Maria Clara (github.\+com/mclara-\/s)
 
 \section*{$\ast$$\ast$ P\+R\+O\+J\+E\+T\+O B.\+A.\+R.\+E.\+S. $\ast$$\ast$}
 
@@ -22,10 +22,18 @@ Autoras\+: Ana Clara e Maria Clara
 
 \subparagraph*{O programa irá ler o documento \char`\"{}expressions.\+txt\char`\"{} e irá retornar os resultados das expressões listadas, ou erros que forem encontrados em cada expressão.}
 
+\subparagraph*{Ao terminar de executar o programa, se caso o usuário quiser testar alguma modificação no código original, na compilação após essa alteração, antes de dar o comando \char`\"{}make\char`\"{} será necessário excluir com o comando {\itshape rm bares} o objeto da compilação anterior}
+
+\subparagraph*{Caso o usuário só quiser modificar o arquivo \char`\"{}expressions.\+txt\char`\"{} para testar outras expressões, ele só precisará ir no diretório {\itshape src} e editar o arquivo, salvar e executar o programa (./bares). }
+
 \section*{$\ast$$\ast$\+Verificação de Vazamento de Memória$\ast$$\ast$ }
 
 \subparagraph*{Para verificarmos se o nosso algoritmo está com vazamento de memória de dados, utilizamos a ferramenta Valgrind para teste}
 
 \subparagraph*{O usuário após compilar e criar o objeto deve escrever no Terminal\+:}
 
-{\itshape valgrind --leak-\/check=full ./bares} 
+{\itshape valgrind --leak-\/check=full ./bares}
+
+\section*{$\ast$$\ast$\+Documentação$\ast$$\ast$}
+
+\subparagraph*{Foi utilizada a ferramenta Doxygen para auxiliar na documentação da execução desse projeto, para o usuário visualizar é necessário entrar no diretório \char`\"{}html\char`\"{} e acessar o arquivo index.\+html, logo a documentação será aberta em modo offline em seu navegador padrão}
