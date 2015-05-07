@@ -16,7 +16,6 @@ class Bares{
 	private:
 		Token T;
 		Queue<Token> infix, posfix;
-		//Queue<string> expressions;
 		int result;
 
 	public:

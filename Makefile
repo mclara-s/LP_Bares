@@ -1,12 +1,12 @@
 CC = g++
-SRCS = $(wildcard src/*.cpp\ headers/*.hpp)
+SRCS = $(wildcard src/*.cpp\ headers/*.hpp\)
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 INCLUDES = -Iheaders
-CFLAGS = -Wall -g -std=c++11
+CFLAGS = -Wall -g -std=c++11 
  
 all: $(OBJS) bares
  
-$(OBJS): %.o: %.cpp $(SRCS)
+$(OBJS): $(SRCS) %.o %.cpp
 	$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
  
 bares:
