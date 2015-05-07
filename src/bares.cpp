@@ -194,7 +194,6 @@ int Bares::transformaParaPos(){
 
 	while (!infix.isEmpty()){
 		symb = infix.dequeue();
-		//cout << symb << endl;
 			if (!isOperator(symb.str)){
 					posfix.enqueue(symb);
 			}
@@ -203,8 +202,6 @@ int Bares::transformaParaPos(){
 			else if (symb.str == ")"){
 				while (!operators.isEmpty() && operators.top().str != "("){
 					topSymb = operators.pop();
-					if (topSymb.str == "$")
-						//topSymb.str = "-";
 					posfix.enqueue(topSymb);
 				}
 				if (operators.isEmpty()){
@@ -258,12 +255,7 @@ bool Bares::calculaPosF(string expr){
 	Token symb;
 	Stack<int>operandos;
 	if (tokenizacao(expr) != -1){
-		infix.print();
 		if(transformaParaPos() != -1){
-				//
-	posfix.print();
-			//cout << "transforma para pos deu certo\n";
-			//posfix.print();
 			while (!posfix.isEmpty()){
 				symb = posfix.dequeue();
 				if (isNumber(symb.str))
@@ -283,7 +275,6 @@ bool Bares::calculaPosF(string expr){
 				}
 			}
 			result = operandos.pop();
-			//cout << "vai retornar true\n";
 			return true;
 		}
 	}

@@ -35,12 +35,11 @@ bool readFile(Queue<string> &expressions){
 int main(){
 	Bares bares;
 	Queue<string> expressions;
-	//int result;
 
 	if(readFile(expressions)){
 		while(!expressions.isEmpty()){
 			if (bares.calculaPosF(expressions.dequeue()))				
-				cout << "result: " << bares.getResult() << endl;
+				cout << bares.getResult() << endl;
 		}
 	}
 	else
