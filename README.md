@@ -10,3 +10,6 @@ Proporcionando o cálculo de operações aritméticas utilizando o método infix
 
 *O usuário deve entrar no diretório do projeto "LP_Bares" pelo terminal Linux*
 *Estando dentro do diretório o usuário deve escrever o comando "make"*
+
+**Verificação de Vazamento de Memória**
+*valgrind --leak-check=full ./bares *
