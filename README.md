@@ -13,7 +13,7 @@ Autoras: Ana Clara e Maria Clara
 <h5>Estando dentro do diretório o usuário deve escrever o comando "make"</h5>
 <h5>Ao terminar o comando será criado o objeto executável denominado "bares"</h5>
 <h5>Para executá-lo o usuário precisa digitar "./bares"</h5>
-<h5>O programa irá ler o documento "expressions.txt" e irá retornar os resultados das expressões listadas, ou erros que forem encontrados em casa expressão.</h5>
+<h5>O programa irá ler o documento "expressions.txt" e irá retornar os resultados das expressões listadas, ou erros que forem encontrados em cada expressão.</h5>
 
 <h1>**Verificação de Vazamento de Memória** </h1>
 

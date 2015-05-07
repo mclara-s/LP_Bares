@@ -1,5 +1,5 @@
 CC = g++
-SRCS = $(wildcard src/*.cpp\ headers/*.hpp\)
+SRCS = $(wildcard src/*.cpp headers/*.hpp\)
 OBJS = $(patsubst %.cpp,%.o,$(SRCS))
 INCLUDES = -Iheaders
 CFLAGS = -Wall -g -std=c++11 
