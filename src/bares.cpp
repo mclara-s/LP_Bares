@@ -194,16 +194,17 @@ int Bares::transformaParaPos(){
 
 	while (!infix.isEmpty()){
 		symb = infix.dequeue();
+		//cout << symb << endl;
 			if (!isOperator(symb.str)){
 					posfix.enqueue(symb);
 			}
-			else if (symb.str == "("){
+			else if (symb.str == "(" || symb.str == "$"){
 				operators.push(symb);}
 			else if (symb.str == ")"){
 				while (!operators.isEmpty() && operators.top().str != "("){
 					topSymb = operators.pop();
 					if (topSymb.str == "$")
-						topSymb.str = "-";
+						//topSymb.str = "-";
 					posfix.enqueue(topSymb);
 				}
 				if (operators.isEmpty()){
@@ -256,32 +257,38 @@ bool Bares::calculaPosF(string expr){
 	int op1, op2;
 	Token symb;
 	Stack<int>operandos;
-
-	tokenizacao(expr);
-	if(transformaParaPos()){
-		while (!posfix.isEmpty()){
-			symb = posfix.dequeue();
-			if (isNumber(symb.str))
-				operandos.push(stoi(symb.str));
-			else if(symb.str == "$"){
-				op1 = operandos.pop();
-				result = op1*(-1);
-				operandos.push(result);
-			}
-			else{
-				op2 = operandos.pop();
-				op1 = operandos.pop();
-				if(calcula(op1, op2, symb))
+	if (tokenizacao(expr) != -1){
+		infix.print();
+		if(transformaParaPos() != -1){
+				//
+	posfix.print();
+			//cout << "transforma para pos deu certo\n";
+			//posfix.print();
+			while (!posfix.isEmpty()){
+				symb = posfix.dequeue();
+				if (isNumber(symb.str))
+					operandos.push(stoi(symb.str));
+				else if(symb.str == "$"){
+					op1 = operandos.pop();
+					result = op1*(-1);
 					operandos.push(result);
-				else
-					return false;
+				}
+				else{
+					op2 = operandos.pop();
+					op1 = operandos.pop();
+					if(calcula(op1, op2, symb))
+						operandos.push(result);
+					else
+						return false;
+				}
 			}
+			result = operandos.pop();
+			//cout << "vai retornar true\n";
+			return true;
 		}
-		result = operandos.pop();
-		return true;
 	}
-	else
 		return false;
+
 }
 
 int Bares::getResult(){
