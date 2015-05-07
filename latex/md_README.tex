@@ -1,11 +1,31 @@
+\section*{\#\#\+Trabalho de Laboratorio de Programação I \#\#}
+
 Autoras\+: Ana Clara e Maria Clara
 
-$\ast$$\ast$ P\+R\+O\+J\+E\+T\+O B.\+A.\+R.\+E.\+S. $\ast$$\ast$
+\section*{$\ast$$\ast$ P\+R\+O\+J\+E\+T\+O B.\+A.\+R.\+E.\+S. $\ast$$\ast$}
 
-O projeto Basic Arithmetic Expression Evaluator Based On Stacks (B.\+A.\+R.\+E.\+S.) foi criado com a intenção de abordar os assuntos vistos em sala de aula. Proporcionando o cálculo de operações aritméticas utilizando o método infixo e pósfixo para leitura em filha e empilhamento de dados.
+\subparagraph*{O projeto Basic Arithmetic Expression Evaluator Based On Stacks (B.\+A.\+R.\+E.\+S.) foi criado com a intenção de abordar os assuntos vistos em sala de aula.}
 
-{\bfseries Execução}
+\subparagraph*{Proporcionando o cálculo de operações aritméticas utilizando o método infixo e pósfixo para leitura em filha e empilhamento de dados e verificando se as expressões apresentam os seguintes erros\+:}
 
-{\itshape O usuário deve entrar no diretório do projeto \char`\"{}\+L\+P\+\_\+\+Bares\char`\"{} pelo terminal Linux} {\itshape Estando dentro do diretório o usuário deve escrever o comando \char`\"{}make\char`\"{}}
+{\itshape Constante numerica invalida,Falta operando, Operando inválido, Operador inválido, Falta operador, Fechamento de escopo inválido, Escopo aberto, Divisão por zero.}
 
-{\bfseries Verificação de Vazamento de Memória} $\ast$valgrind --leak-\/check=full ./bares $\ast$ 
+\section*{$\ast$$\ast$\+Execução$\ast$$\ast$}
+
+\subparagraph*{O usuário deve entrar no diretório do projeto \char`\"{}\+L\+P\+\_\+\+Bares\char`\"{} pelo terminal Linux ou Terminal simulador(\+C\+Y\+G\+W\+I\+N) do Windows}
+
+\subparagraph*{Estando dentro do diretório o usuário deve escrever o comando \char`\"{}make\char`\"{}}
+
+\subparagraph*{Ao terminar o comando será criado o objeto executável denominado \char`\"{}bares\char`\"{}}
+
+\subparagraph*{Para executá-\/lo o usuário precisa digitar \char`\"{}./bares\char`\"{}}
+
+\subparagraph*{O programa irá ler o documento \char`\"{}expressions.\+txt\char`\"{} e irá retornar os resultados das expressões listadas, ou erros que forem encontrados em casa expressão.}
+
+\section*{$\ast$$\ast$\+Verificação de Vazamento de Memória$\ast$$\ast$ }
+
+\subparagraph*{Para verificarmos se o nosso algoritmo está com vazamento de memória de dados, utilizamos a ferramenta Valgrind para teste}
+
+\subparagraph*{O usuário após compilar e criar o objeto deve escrever no Terminal\+:}
+
+{\itshape valgrind --leak-\/check=full ./bares} 

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['trabalho_20de_20laboratorio_20de_20programação_20i',['Trabalho de Laboratorio de Programação I',['../md_README.html',1,'']]],
   ['testaerros1a5',['testaErros1a5',['../classBares.html#a845256ca5c22ff7840f97a01650949c7',1,'Bares']]],
   ['token',['Token',['../structToken.html',1,'']]],
   ['tokenizacao',['tokenizacao',['../classBares.html#a0fec70452075bb8f1137b620ddb9c404',1,'Bares']]],
